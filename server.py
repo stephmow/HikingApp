@@ -20,16 +20,29 @@ def show_home():
 @app.route('/hikeList')
 def hike_list():
     """Displays list of hikes within search criteria"""
+
+    hikes = crud.get_hikes_by_zip()
     
-    return render_template('all_hikes.html')
+    return render_template('all_hikes.html', hikes=hikes)
 
 
-# @app.route('/hikeList/<int:hike_id>')
-# def hike_details(hike_id):
+@app.route('/hikeList/<int:hike_id>')
+def hike_details(hike_id):
     
-#     pass
+    hike = crud.get_hike_by_id(hike_id)
+
+    return render_template("hike_details..html", hike=hike)
 
 
+@app.route("/users")
+def all_users():
+    """View all users."""
+
+    users = crud.get_users()
+
+    return render_template("all_users.html", users=users)
+
+       
 @app.route('/users', methods = ["POST"])
 def create_account():
 
@@ -43,6 +56,15 @@ def create_account():
         flash("Your account is created. You can log in")
 
     return redirect('/')
+
+
+@app.route("/users/<user_id>")
+def show_user(user_id):
+    """Show details on a particular user."""
+
+    user = crud.get_user_by_id(user_id)
+
+    return render_template("user_details.html", user=user)
 
 
 @app.route('/login', methods = ["POST"])

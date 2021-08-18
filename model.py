@@ -16,9 +16,12 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     password = db.Column(db.String)
 
+    # ratings = a list of Rating objects
+    # bookmarks = a list of Bookmark objects
+
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
-        
+
 
 class Hike(db.Model):
     """A hike."""
@@ -30,15 +33,17 @@ class Hike(db.Model):
                         primary_key=True)
     rating_id = db.Column(db.Integer)
     location_id = db.Column(db.Integer)
+    name=db.Column(db.String(50))
     zipcode = db.Column(db.Integer)
     hike_length = db.Column(db.Integer)  # in miles
-    dog_friendly = db.Column(db.Boolean)  # is this right? 
+    dog_friendly = db.Column(db.Boolean)  
     average_rating = db.Column(db.Integer)
 
     # ratings = a list of Rating objects
+    # bookmarks = a list of Bookmark objects
 
     def __repr__(self):
-        return f'<Hike hike_id={self.hike_id} zipcode={self.zipcode}>'
+        return f'<Hike hike_id={self.hike_id} name={self.name} zipcode={self.zipcode}>'
 
 
 class Rating(db.Model):
@@ -56,9 +61,8 @@ class Rating(db.Model):
               db.ForeignKey("users.user_id"))
     comments = db.Column(db.String(300))  # should this be in bookmarks instead??? 
 
-    # movie = db.relationship("Movie", backref="ratings")
-    # user = db.relationship("User", backref="ratings")
-
+    hike = db.relationship("Hike", backref="ratings")
+    user = db.relationship("User", backref="ratings")
 
     def __repr__(self):
         return f'<Rating rating_id={self.rating_id} score={self.score}>'
@@ -77,7 +81,10 @@ class Bookmark(db.Model):
     user_id = db.Column(db.Integer, 
                         db.ForeignKey("users.user_id"))
     is_completed = db.Column(db.Boolean)  # True = Completed; False = Wish List 
-    
+
+    hike = db.relationship("Hike", backref="bookmarks")
+    user = db.relationship("User", backref="bookmarks")
+
     def __repr__(self):
         return f'<Bookmark hike_id={self.hike_id} is_completed={self.is_completed}'
 

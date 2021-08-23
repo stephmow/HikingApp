@@ -17,55 +17,49 @@ def show_home():
     
     return render_template('homepage.html')
 
+# example 
+@app.route("/hike_test")
+def get_all_hikes():
+
+    hikes = crud.get_all_hikes()
+
+    return hikes
+
+
 @app.route('/hikeList')
 def hike_list():
     """Displays list of hikes within search criteria"""
 
-    hikes = crud.get_hikes_by_zip()
+    zipcode = int(request.args.get('zipcode'))
+
+    hikes = crud.get_all_hikes()
     
-    return render_template('all_hikes.html', hikes=hikes)
+    return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
 
 
-@app.route('/hikeList/<int:hike_id>')
+@app.route('/hikeList/<hike_id>')
 def hike_details(hike_id):
-    
-    hike = crud.get_hike_by_id(hike_id)
+    """Show details on a particular hike"""
 
-    return render_template("hike_details..html", hike=hike)
+    hike = crud.get_hike_details(hike_id)
 
-
-@app.route("/users")
-def all_users():
-    """View all users."""
-
-    users = crud.get_users()
-
-    return render_template("all_users.html", users=users)
-
+    return render_template("hike_details.html", hike=hike)
        
+
 @app.route('/users', methods = ["POST"])
 def create_account():
 
     user_email = request.form.get('email')
     user_password = request.form.get('password')
 
-    if crud.get_user_by_email(user_email):
+    if crud.get_user_by_email(user_email):   # if user_email is in the User database
         flash("There is already an account with that email.")
     else:
         crud.create_user(user_email, user_password)
         flash("Your account is created. You can log in")
 
     return redirect('/')
-
-
-@app.route("/users/<user_id>")
-def show_user(user_id):
-    """Show details on a particular user."""
-
-    user = crud.get_user_by_id(user_id)
-
-    return render_template("user_details.html", user=user)
-
+    
 
 @app.route('/login', methods = ["POST"])
 def login():

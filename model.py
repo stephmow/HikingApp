@@ -65,7 +65,7 @@ class Rating(db.Model):
     user = db.relationship("User", backref="ratings")
 
     def __repr__(self):
-        return f'<Rating rating_id={self.rating_id} score={self.score}>'
+        return f'<Rating rating_id={self.rating_id} rating={self.rating}>'
 
 
 class Bookmark(db.Model):

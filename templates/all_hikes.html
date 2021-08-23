@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Hike List{% endblock %}
+
+{% block body %}
+    See below list of hikes near {{zipcode}}.
+
+  {% for hike in hikes %}
+  <!-- <script>console.log("hike zip: {{hike.zipcode}} zip entered: {{zipcode}}")</script> -->
+
+    {% if zipcode == hike.zipcode %}
+      <!-- <script>console.log('***test***2');</script> -->
+
+      <li>
+        <a href="/hikeList/{{ hike.hike_id }}">
+          {{ hike.name }}
+        </a>
+      </li>
+    {% endif %}
+
+  {% endfor %}
+
+{% endblock %}

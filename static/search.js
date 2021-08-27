@@ -4,7 +4,7 @@
 // $("#myHeader").toggle(2000);
  
 // Example - alert when clicking on hike search button
-$('#hike-search').on('click', (evt) => {
+$('#hike-search').on('submit', () => {
   alert('testing 2');
 });
 
@@ -26,10 +26,11 @@ $('#user-login').on('submit', (evt) => {
 
   $.post('/login', formInputs, (res) => {
     alert(res);
-    $("#user-login").toggle(2000);   
-    $("#create-account").toggle(2000);   
-    $('#userName').text("add user email here");
+
+    if(res == "You are logged in.") {
+      $("#user-login").toggle(2000);   
+      $("#create-account").toggle(2000);   
+      $('#userName').text(formInputs['email']);
+      };
     });
-
   });
-

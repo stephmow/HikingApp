@@ -33,11 +33,11 @@ class Hike(db.Model):
                         primary_key=True)
     rating_id = db.Column(db.Integer)
     location_id = db.Column(db.Integer)
-    name=db.Column(db.String(50))
-    zipcode = db.Column(db.Integer)
+    name = db.Column(db.String(250))
+    zipcode = db.Column(db.Integer)  # add nullability
     hike_length = db.Column(db.Integer)  # in miles
     dog_friendly = db.Column(db.Boolean)  
-    average_rating = db.Column(db.Integer)
+    average_rating = db.Column(db.Float)
 
     # ratings = a list of Rating objects
     # bookmarks = a list of Bookmark objects

@@ -18,7 +18,7 @@ def show_home():
     - form id = user-login
     - form id = hike-search
     - List hikes (form hidden by image)
-    - HIke details (form hidden by image) 
+    - Hike details (form hidden by image) 
     """
     
     return render_template('homepage.html')
@@ -38,50 +38,17 @@ def create_account():
 
     return redirect('/')
 
-# @app.route('/users', methods = ["POST"])
-# def create_account():
-
-#     user_email = request.form.get('email')
-#     user_password = request.form.get('password')
-
-#     if crud.get_user_by_email(user_email):   # if user_email is in the User database
-#         flash("There is already an account with that email. Please log in.")
-#     else:
-#         crud.create_user(user_email, user_password)  # adds user to the User database
-#         flash("Your account is created. You can log in")
-
-#     return redirect('/')
-    
-
-# @app.route('/login', methods = ["POST"])
-# def login():
-
-#     user_email = request.form.get('email')
-#     user_password = request.form.get('password')
-
-#     if crud.get_user_by_email(user_email):
-#         if crud.get_user_by_email(user_email).password == user_password:
-#             session['user_email'] = user_email
-#             flash("Logged in!")
-#             return render_template('logged_in.html', user_email = user_email)   # *******edit this to then not show the login page.... 
-#         else:
-#             flash("Incorrect password, try again.")
-
-#     else:
-#         flash("Email does not exist.")
-
-#     return redirect('/')
-
-
 @app.route('/login', methods = ["POST"])
 def login():
 
     user_email = request.form.get('email')
     user_password = request.form.get('password')
+    # logged_in = False 
 
     if crud.get_user_by_email(user_email):
         if crud.get_user_by_email(user_email).password == user_password:
             session['user_email'] = user_email
+            # logged_in = True 
             return "You are logged in."
         else:
             return "Incorrect password, try again"
@@ -89,29 +56,8 @@ def login():
     else:
         return "Email does not exist"
 
-# example 
-@app.route('/test')
-def test_hike():
-    """Practice using ajax"""
 
-    random_word = "Stephanie Mow"
-
-    return random_word
-
-
-@app.route('/hikeList')
-def hike_list():
-    """Displays list of hikes within search criteria"""
-
-    zipcode = int(request.args.get('zipcode'))
-
-    hikes = crud.get_all_hikes()
-    
-    return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
-
-
-
-# @app.route('/hikeList-ajax')
+# @app.route('/hikeList')
 # def hike_list():
 #     """Displays list of hikes within search criteria"""
 
@@ -121,15 +67,15 @@ def hike_list():
     
 #     return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
 
-# @app.route('/hikeList-ajax')
-# def hike_list():
-#     """Displays list of hikes within search criteria - AJAX VERSION"""
+@app.route('/hikeList')
+def hike_list():
+    """Displays list of hikes within search criteria - AJAX VERSION"""
 
-#     zipcode = int(request.args.get('zipcode'))
+    zipcode = int(request.args.get('zipcode'))
 
-#     hikes = crud.get_all_hikes()
+    hikes = crud.get_all_hikes()
     
-#     return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
+    return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
 
 
 @app.route('/hikeList/<hike_id>')

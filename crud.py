@@ -51,6 +51,17 @@ def create_rating(user, hike, rating, comments=''):
 
     return hike_rating
 
+def get_bookmarks_by_user(user_id):
+
+    return Bookmark.query.filter(User.user_id == user_id)
+
+def get_ratings_by_user(user_id):
+
+    return Rating.query.filter(User.user_id == user_id)
+
+# DELETE BOOKMARK
+# DELETE RATING
+
 
 # For login 
 def get_user_by_email(email):

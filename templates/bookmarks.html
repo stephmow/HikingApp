@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}All Bookmarks{% endblock %}
+
+{% block body %}
+  <h1>All Bookmarks</h1>
+
+  <ul>
+    {% for bookmark in bookmarks %}
+      <li>
+      
+          {{ bookmark.hike.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h1>All Ratings</h1>
+
+  <ul>
+    {% for rating in ratings %}
+      <li>
+      
+          For {{ rating.hike.name }}<br>
+          Rating: {{ rating.rating }}<br>
+          Comments: {{ rating.comments }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+
+
+
+
+
+
+{% endblock %}

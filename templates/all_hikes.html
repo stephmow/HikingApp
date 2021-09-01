@@ -5,15 +5,15 @@
     
 
 
-    See below list of hikes near {{zipcode}}.
+    See below list of hikes near {{input}}.
  
 
 
 
   {% for hike in hikes %}
-  <!-- <script>console.log("hike zip: {{hike.zipcode}} zip entered: {{zipcode}}")</script> -->
 
-    {% if zipcode == hike.city %}
+
+    {% if input == hike.city %}
       <script>console.log('***test***2');</script>
       <li>
         <a href="/hikeList/{{ hike.hike_id }}">

@@ -1,12 +1,12 @@
  "use strict";
 
 // Example - fade out the Welcome header 
-// $("#myHeader").toggle(2000);
+  // $("#myHeader").toggle(2000);
  
 // Example - alert when clicking on hike search button
-$('#hike-search').on('submit', () => {
-  alert('testing 2');
-});
+  // $('#hike-search').on('submit', () => {
+  //   alert('testing 2');
+  // });
 
 // Example - test '/test' and add in my name to the welcome header
   // $.get('/test', (evt) => {

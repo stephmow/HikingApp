@@ -6,7 +6,7 @@ querystring = {"q-activities_activity_type_name_eq":"hiking","q-state_cont":"Cal
 
 headers = {
     'x-rapidapi-host': "trailapi-trailapi.p.rapidapi.com",
-    'x-rapidapi-key': "9e3aebbb37mshbe5a4b7745c3970p188377jsne7088ebe7175"
+    'x-rapidapi-key': RAPID_API_KEY
     }
 
 response = requests.request("GET", url, headers=headers, params=querystring)

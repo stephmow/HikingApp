@@ -12,8 +12,8 @@ Average Rating: {{ hike.average_rating }}
 
 
 {% if session.get('user_email') %}
+<form id = "bookmarks">
 <h2>Bookmark this hike</h2>
-<form id = "bookmarks" >
 
 <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST"> -->
   <p>
@@ -26,12 +26,12 @@ Average Rating: {{ hike.average_rating }}
     <button type="submit">Submit</button>
     <br> 
 
+       <!--  hidden input of hike_id  -->
     <input id = "hidden-hike-id" type= "hidden" 
       name="hike_id" 
       value = {{ hike.hike_id }}>
 
 
-   <!-- add hidden input of hike_id  -->
 
   </p>
 </form>

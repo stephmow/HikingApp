@@ -9,7 +9,6 @@ import crud, model, server
 import geocoder
 import requests
 
-API_KEY = 'AIzaSyBGeOCEe50xco2FJA73vuRrVMGtHa9SJVs'
 
 os.system('dropdb hikedb') 
 os.system('createdb hikedb')

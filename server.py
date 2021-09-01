@@ -75,11 +75,11 @@ def hike_list():
     """Displays list of hikes within search criteria - update with ajax version for sprint 2 (later on)"""
 
     # zipcode = int(request.args.get('zipcode'))   
-    zipcode = request.args.get('zipcode')   # for now, this will be a city search. 
+    input = request.args.get('location-input')   # for now, this will be a city search. 
 
     hikes = crud.get_all_hikes()
     
-    return render_template('all_hikes.html', hikes=hikes, zipcode=zipcode)
+    return render_template('all_hikes.html', hikes=hikes, input=input)
 
 
 @app.route('/hikeList/<hike_id>')
@@ -91,53 +91,60 @@ def hike_details(hike_id):
     return render_template("hike_details.html", hike=hike)
 
 
-@app.route("/hikeList/<hike_id>/bookmark", methods=["POST"])
-def create_bookmark(hike_id):
-    """Create a bookmark for a hike."""
+# @app.route("/hikeList/<hike_id>/bookmark", methods=["POST"])
+# def create_bookmark(hike_id):
+#     """Create a bookmark for a hike."""
 
-    logged_in_email = session.get("user_email")
-    hike = crud.get_hike_details(hike_id)
-    is_completed = request.form.get("bookmark")
+#     print('*****test******')  # this works.......
 
-    if is_completed == "True":
-        is_completed = True
-    elif is_completed == "False":
-        is_completed = False
-    else: 
-        is_completed = None
+#     logged_in_email = session.get("user_email")
+#     hike = crud.get_hike_details(hike_id)
+#     is_completed = request.form.get("bookmark")
+
+#     if is_completed == "True":
+#         is_completed = True
+#     elif is_completed == "False":
+#         is_completed = False
+#     else: 
+#         is_completed = None
 
 #confirm i don't need the below code...since my hike_details already has an if statement to show the bookmarks module
     # if logged_in_email is None:
     #     # flash("You must log in to bookmark a hike.") 
     #     return redirect('/')
   
-    if is_completed == False:  # Hike added to bookmarks
-        user = crud.get_user_by_email(logged_in_email)
-        hike = crud.get_hike_details(hike_id) 
+    # if is_completed == False:  # Hike added to bookmarks
+    #     user = crud.get_user_by_email(logged_in_email)
+    #     hike = crud.get_hike_details(hike_id) 
 
-        crud.create_bookmark(user=user, hike=hike, is_completed=is_completed)
+    #     crud.create_bookmark(user=user, hike=hike, is_completed=is_completed)
 
-        flash(f"You saved {{ hike.name }} to bookmarks.")
+    #     flash(f"You saved {{ hike.name }} to bookmarks.")
 
-    elif is_completed == True: # Hike has been completed
-        user = crud.get_user_by_email(logged_in_email)
-        hike = crud.get_hike_details(hike_id) 
+    # elif is_completed == True: # Hike has been completed
+    #     user = crud.get_user_by_email(logged_in_email)
+    #     hike = crud.get_hike_details(hike_id) 
         
-        crud.create_bookmark(user=user, hike=hike, is_completed=is_completed)
+    #     crud.create_bookmark(user=user, hike=hike, is_completed=is_completed)
 
-        flash(f"You completed {{ hike.name }}.")
-        return('hikeList/<hike_id>/ratings')
+    #     flash(f"You completed {{ hike.name }}.")
+    #     return('hikeList/<hike_id>/ratings')
     
-    else:
-        flash("Error: you didn't select a hike bookmark.")
+    # else:
+    #     flash("Error: you didn't select a hike bookmark.")
 
-    return redirect(f"/hikeList/{hike_id}")
+    # return redirect(f"/hikeList/{hike_id}")
 
 @app.route("/hikeList/<hike_id>/add_bookmark", methods=["POST"])
 def add_bookmark(hike_id):
     """AJAX route for adding a bookmark to save a hike."""
 
-    is_completed = request.form.get("bookmark")
+    print("******test*****")
+
+    # is_completed = request.form.get("bookmark") # use this if accessing through form
+    is_completed = request.form.get("is_completed") # taking in input from ratings.js
+    hike = crud.get_hike_details(hike_id)
+    logged_in_email = session.get("user_email")
      
     if is_completed == "True":
         is_completed = True
@@ -145,27 +152,27 @@ def add_bookmark(hike_id):
         is_completed = False
     else: 
         is_completed = None
+    
+    print(is_completed)
 
-    logged_in_email = session.get("user_email")
-    is_completed = request.form.get("bookmark")  # True or False 
 
     if is_completed == False:
         user = crud.get_user_by_email(logged_in_email)
-        hike = crud.get_hike_by_id(hike_id)
+        hike = crud.get_hike_details(hike_id)
 
-        crud.create_bookmark(user, hike, is_completed)
+        crud.create_bookmark(user = user, hike = hike, is_completed = is_completed)
 
         flash(f"You bookmarked this hike.")
 
     return redirect(f"/hikeList/{hike_id}")
     
 
-
-@app.route("/hikeList/<hike_id>/add_ratings")
+@app.route("/hikeList/<hike_id>/add_rating", methods=["POST"])
 def create_rating(hike_id):
     """AJAX route for a rating for a hike."""
-    
-    is_completed = request.form.get("bookmark")
+
+    logged_in_email = session.get("user_email")
+    is_completed = request.form.get("is_completed")
     rating = request.form.get("rating")
     comments = request.form.get("comments")
      
@@ -176,19 +183,31 @@ def create_rating(hike_id):
     else: 
         is_completed = None
 
-    logged_in_email = session.get("user_email")
-    is_completed = request.form.get("bookmark")  # True or False 
-
     if is_completed == True:
         user = crud.get_user_by_email(logged_in_email)
-        hike = crud.get_hike_by_id(hike_id)
+        hike = crud.get_hike_details(hike_id)
 
-        crud.create_rating(user, hike, rating, comments)
+        crud.create_rating(user = user, hike = hike, rating = rating, comments = comments)
 
         flash(f"You created a rating for this hike.")
 
     return redirect(f"/hikeList/{hike_id}")
-    
+
+
+@app.route("/bookmarks")
+def all_bookmarks():
+    """View all saved hikes."""
+
+    logged_in_email = session.get("user_email")
+
+    if session['user_email'] == logged_in_email:
+        user = crud.get_user_by_email(logged_in_email)
+        bookmarks = crud.get_bookmarks_by_user(user.user_id)
+        # print(bookmarks)
+        ratings = crud.get_ratings_by_user(user.user_id)
+
+    return render_template("bookmarks.html", bookmarks = bookmarks, ratings = ratings)
+     
 
 
 # @app.route("/hikeList/<hike_id>/ratings", methods=["POST"])

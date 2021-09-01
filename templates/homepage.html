@@ -44,7 +44,7 @@
   <div class="col-10">
     <h2>Search for a hike</h2>
     <form id = "hike-search" action="/hikeList">
-      <p>Enter a zip code: <input type="text" name="zipcode" required><input type="submit" value="Search"></p>
+      <p>Enter a City: <input type="text" name="zipcode" required><input type="submit" value="Search"></p>
     </form>
   </div>
 
@@ -102,6 +102,48 @@
   </div>
 </section>
 
+<div class="row">
+  <div class="col-2">
+
+    
+    <h2>Bookmarks</h2>
+    
+    <table style="width:30%">
+      <tr>
+        <td>Wish List Hikes</td>
+        <td>Tobias</td>
+        <td>Linus</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>14</td>
+        <td>10</td>
+      </tr>
+    </table>
+    
+    <p>To undestand the example better, we have added borders to the table.</p>
+
+    
+    
+
+
+
+
+    <form id="user-bookmarks">
+    <h5>Bookmarks</h5>
+
+      <!-- removed from line above  action="/login" method="POST"-->
+
+      <p>Saved Hikes: <input id="saved-hikes" name="saved-hikes"></p>
+      <!-- List Bookmarks where is_completed == False  -->
+
+      <p>Completed Hikes: <input id="completed-hikes" name="completed-hikes"></p>
+      <!-- List Bookmarks where is_completed == True  -->
+
+    </form>
+
+  </div>
+</div>
 
 
 
@@ -113,5 +155,4 @@
   
 {% block scripts %}
   <script src="/static/search.js"></script>
-  <script src="/static/hike_list.js"></script>
 {% endblock %}

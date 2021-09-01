@@ -4,12 +4,70 @@
 
 {% block body %}
 <h1>{{ hike.name }}</h1>
-<h1>{{ hike.zipcode }}</h1>
-<h1>Average Rating: {{ hike.average_rating }}</h1>
+<p>City: {{ hike.city }}</p>
+<p>Difficulty: {{ hike.difficulty }}</p>
+Route Type: {{ hike.route_type }}<p></p>
+Activities: {{ hike.activities }}<p></p>
+Average Rating: {{ hike.average_rating }}
 
-<script>console.log("*****test*****")</script>
+
+{% if session.get('user_email') %}
+<h2>Bookmark this hike</h2>
+<form id = "bookmarks" >
+
+<!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST"> -->
+  <p>
+    Bookmark: <br>
+
+    <input type="radio" name="bookmark" value="False">   <!-- Hike saved = False -->
+    Save This Hike<br>
+    <input type="radio" name="bookmark" value="True"> <!-- Hike completed = True-->
+    Completed This Hike<br>
+    <button type="submit">Submit</button>
+    <br> 
+
+    <input id = "hidden-hike-id" type= "hidden" 
+      name="hike_id" 
+      value = {{ hike.hike_id }}>
 
 
+   <!-- add hidden input of hike_id  -->
+
+  </p>
+</form>
+
+<!-- create new form  -->
+<!-- 
+<form input type = "hidden" name = rating>
+
+  Rate this hike: <input type="text" id="rating" name="rating"> <br>
+  Comments on this hike: <input type="text" id="comments" name="comments">
+
+</form> -->
+
+{% endif %}
+
+
+<form id = "ratings" action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST">
+  <h2>Rate this hike</h2>
+
+  <p>
+
+    <input type="text" name="rating">   
+    Rate This Hike<br>
+    <input type="text" name="comments">
+    Comments On This Hike<br>
+    <button type="submit">Submit</button>
+   
+  </p>
+</form>
+
+
+
+
+{% block scripts %}
+  <script src="/static/ratings.js"></script> 
+{% endblock %}
 
 {% endblock %}
 

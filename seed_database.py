@@ -6,6 +6,10 @@ import csv
 from random import choice, randint 
 # from datetime import datetime 
 import crud, model, server
+import geocoder
+import requests
+
+API_KEY = 'AIzaSyBGeOCEe50xco2FJA73vuRrVMGtHa9SJVs'
 
 os.system('dropdb hikedb') 
 os.system('createdb hikedb')
@@ -22,25 +26,87 @@ def seed_from_csv():
             trail_id = row[0]
             name = row[1]
             # area_name, 2
-            # city_name,
+            city = row[3]
             # state_name,
             # country_name,
-            # _geoloc,
+            location_id = row[6]
+                # output: "\\{'lat': 20.71449, 'lng': -156.25085\\}"  which is a string
+            location_strip = location_id.strip('\\{, \\}')
+            location_split = location_strip.split()
+                # output: ['lat':, 20.71449, , 'lng': , 156.25085]
+
+            latitude = location_split[1].strip(",")
+            longitude = location_split[3]
+
+            # Geocode API Call for zipcode 
+            latlng = latitude + ", " + longitude
+            params = {
+                        'key': API_KEY, 
+                        'latlng': latlng
+                    }
+
+            base_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
+            response = requests.get(base_url, params = params).json()   
+            
+            # if 'results' in response: 
+            #     zipcode = response['results'][0]['address_components'][7]['long_name']
+
+            zipcode = None
+
+            for item in response['results'][0]['address_components']:
+                if item['types'][0] == 'postal_code':
+                    zipcode = item['long_name']
+         
+
+
+
+            # print(latitude, longitude)   # prints as integers
+            # coord = (latitude,longitude)  #prints as strings
+
+            #reqeust.get______ --> geocode to obtain zipcode ****
+
+            # print(coord)
+            # latitude = location_id['lat']
+            # reverse = geocoder.google(location_id)
             # popularity,
-            hike_length = row[8] 
+            hike_length = float(row[8])
             # elevation_gain,
-            # difficulty_rating,
-            # route_type,
+            difficulty = int(row[10])
+            route_type = row[11]
             # visitor_usage,
             average_rating = float(row[13])
             # num_reviews,
             # features,
-            # activities, 16
+            activities = row[16]
             # units\
 
-            print(trail_id)
-            print(name)
-            crud.create_hike(name, None, average_rating)
+        # example hike 
+            # ['10011933', 
+            # 'Puna Kau Trail', 
+            # 'Hawaii Volcanoes National Park', 
+            # 'Pahala', 
+            # 'Hawaii', 
+            # 'Hawaii', 
+            # "\\{'lat': 19.29054, 'lng': -155.13412\\}", 6
+            # '4.2363', 
+            # '29289.988', 
+            # '420.9288', 
+            # '5', 10
+            # 'out and back', 11
+            # '', 
+            # '4.5', 
+            # '3', 
+            # "['dogs-no', 'views']", "['hiking']", 
+            # 'm\\']
+
+            crud.create_hike(rating_id = None, location_id = None, city = city, latitude = latitude, longitude = longitude, zipcode = zipcode, name = name, hike_length = hike_length, average_rating = average_rating, difficulty = difficulty, route_type = route_type, activities = activities, dog_friendly = None)
+
+    for n in range(10):
+        email = f'user{n}@test.com'
+        password = 'test'
+
+        # create a user here
+        user = crud.create_user(email, password)
 
 
 def seed_from_json():
@@ -78,10 +144,10 @@ def seed_from_json():
         user = crud.create_user(email, password)
 
         for _ in range(10):
-            random_movie = choice(hikes_in_db)
+            random_hike = choice(hikes_in_db)
             rating = randint(1, 5)
 
-            crud.create_rating(user, random_movie, rating)
+            crud.create_rating(user, random_hike, rating)
 
 if __name__ == "__main__":
     # seed_from_json()   change if using .json data 

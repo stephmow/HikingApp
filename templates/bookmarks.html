@@ -2,19 +2,20 @@
 {% block title %}All Bookmarks{% endblock %}
 
 {% block body %}
-  <h1>All Bookmarks</h1>
+  <h1>All Saved Hikes</h1>
 
   <ul>
     {% for bookmark in bookmarks %}
       <li>
-      
-          {{ bookmark.hike.name }}
-        </a>
+        <div class="bookmark-list">
+          <a href="/hikeList/{{hike.hike_id}}" class="bookmarks">          
+          {{ bookmark.hike.name }}</a>
+        <!-- </div> -->
       </li>
     {% endfor %}
   </ul>
 
-  <h1>All Ratings</h1>
+  <h1>All Completed Hikes</h1>
 
   <ul>
     {% for rating in ratings %}
@@ -27,10 +28,6 @@
       </li>
     {% endfor %}
   </ul>
-
-
-
-
 
 
 {% endblock %}

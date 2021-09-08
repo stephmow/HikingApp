@@ -11,63 +11,106 @@ Activities: {{ hike.activities }}<p></p>
 Average Rating: {{ hike.average_rating }}
 
 
-{% if session.get('user_email') %}
-<form id = "bookmarks">
-<h2>Bookmark this hike</h2>
+{% if user_login %}
 
-<!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST"> -->
-  <p>
-    Bookmark: <br>
+  <form id ="bookmarks">
 
-    <input type="radio" name="bookmark" value="False">   <!-- Hike saved = False -->
-    Save This Hike<br>
-    <input type="radio" name="bookmark" value="True"> <!-- Hike completed = True-->
-    Completed This Hike<br>
-    <button type="submit">Submit</button>
-    <br> 
+    <h2 id=bookmarks-header>Bookmark this hike</h2>
 
-       <!--  hidden input of hike_id  -->
-    <input id = "hidden-hike-id" type= "hidden" 
-      name="hike_id" 
-      value = {{ hike.hike_id }}>
+      
+      <input 
+        type="radio" 
+        name="bookmark" 
+        value="False">   
+      Save This Hike<br>
 
+      <input 
+        type="radio" 
+        name="bookmark" 
+        value="True"> 
+      Completed This Hike<br>
 
+      <input type="submit">
 
-  </p>
-</form>
-
-<!-- create new form  -->
 <!-- 
-<form input type = "hidden" name = rating>
+      <button type="button" id="bookmark-button" class="btn btn-success" name="bookmark" value="False">Save This Hike</button>
+      <p></p>
 
-  Rate this hike: <input type="text" id="rating" name="rating"> <br>
-  Comments on this hike: <input type="text" id="comments" name="comments">
-
-</form> -->
-
-{% endif %}
+      <button type="button" if="rating-button" class="btn btn-success" name="bookmark" value="True">Completed This Hike</button> -->
 
 
-<form id = "ratings" action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST">
+    </form>
+
+
+<form id = "ratings">
+
+  <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
+  
   <h2>Rate this hike</h2>
 
   <p>
 
-    <input type="text" name="rating">   
-    Rate This Hike<br>
+    <div class="rate">
+      <input type="radio" id="star5" name="rating" value="5" />
+      <label for="star5" title="text">5 stars</label>
+      <input type="radio" id="star4" name="rating" value="4" />
+      <label for="star4" title="text">4 stars</label>
+      <input type="radio" id="star3" name="rating" value="3" />
+      <label for="star3" title="text">3 stars</label>
+      <input type="radio" id="star2" name="rating" value="2" />
+      <label for="star2" title="text">2 stars</label>
+      <input type="radio" id="star1" name="rating" value="1" />
+      <label for="star1" title="text">1 star</label>
+    </div>
+
+
+      Comments
     <input type="text" name="comments">
-    Comments On This Hike<br>
+
     <button type="submit">Submit</button>
    
   </p>
 </form>
 
+{% endif %}
 
 
+    <!--  hidden input of hike_id  -->
+    <div>
+      <input 
+     id = "hidden-hike-id" 
+     type= "hidden" 
+     name="hike_id" 
+     value= {{ hike.hike_id }}>
+   </div>
+
+
+    <!-- For google map  -->
+    <h3>Google Maps Location</h3>
+      
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+
+{% endblock %}
 
 {% block scripts %}
-  <script src="/static/ratings.js"></script> 
-{% endblock %}
+
+    <script src="/static/ratings.js"></script> 
+
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+    <script src="/static/map.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <!-- Autocomplete Google Map with Search Bar  -->
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
+  async
+  ></script>
+
+
 
 {% endblock %}
+
 

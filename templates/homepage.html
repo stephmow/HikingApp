@@ -2,9 +2,14 @@
 
 {% block title %}Find a Hike{% endblock %}
 
+{% block head %} 
+
+
+{% endblock %} 
+
+
 {% block body %}
-
-
+<body background="/static/hike_2.jpg">
 
 
 <div class="container-fluid">
@@ -12,146 +17,149 @@
 
 <div class="row">
 
-  <div class="col-2"></div>
-  <nav>
-    <a href="/html/">My Account Info</a> |
-  </nav> 
-  
   <div class="col-10">
-    <h1 id="myHeader">Welcome <span id="userName"></span>!</h1>
+    <h3 id="myHeader">Welcome to HikeFinder <span id="userName"></span></h3>
   </div>
 
 </div>
 
 
-
-
 <div class="row">
+  <div class="col-6"> 
 
-  <div class="col-2"> 
+  {% if user_login == None %}
+
     <form id="create-account" action="/users" method="POST">
-    <h5>Create an Account</h5>
+      <h5>Create an Account</h5>
 
-      <p>Email <input type="text" name="email"></p>
-      <p>Password <input type="password" name="password"></p>
+        <p>  <input class="form-control" type="email" name="email" required="required" placeholder="Email"></p>
+        <p>  <input class="form-control" type="password" name="password" required="required" placeholder="Password"></p>
 
       <p><input type="submit" value="Submit" id = "test"></p>
     </form>
+
+  {% endif %}
+
+  {% if user_login %}
+
+<form id="user-bookmarks" >
+
+  <h1>My Saved Hikes</h1>
+
+  <ul class = "list-group">
+      {% for bookmark in bookmarks %}
+        <a href="/hikeList/{{bookmark.hike.hike_id}}" class="bookmarks">          
+          <li class = "list-group-item">{{ bookmark.hike.name }}</li>
+          </a>
+      {% endfor %}
+  </ul>
+
+</form>
+{% endif %}
+
   </div>
 
+  <div class="col-6">
+      <form id = "hike-search" action="/hikeList">
+        <h5> Search for a hike</h5>
 
+        <input 
+          id="hike-search"
+          class="form-control"
+          name="location-input" 
+          placeholder="City, Zipcode or Name" 
+          required="required"
+          autocomplete="off">
+        </p>
+        <p>  <input type="submit" value="Search"></p>
 
-  <div class="col-10">
-    <h2>Search for a hike</h2>
-    <form id = "hike-search" action="/hikeList">
-      <p>Enter a City, Zipcode or Address: <input type="text" name="location-input" required><input type="submit" value="Search"></p>
-    </form>
+  
+
+      </form>
   </div>
 
 </div>
 
 <div class="row">
+  <div class="col-6">
 
-  <div class="col-2">
+  {% if user_login == None %}
     <form id="user-login">
-    <h5>Log In</h5>
+      <h5>Log In</h5>
 
-      <!-- removed from line above  action="/login" method="POST"-->
+        <!-- removed from line above  action="/login" method="POST"-->
 
-      <p>Email <input id="login-email" type="text" name="email"></p>
-      <p>Password <input id="login-pass" type="password" name="password"></p>
+        <p> <input class="form-control" id="login-email" type="email" name="email" placeholder="Email"></p>
+        <p> <input class="form-control" id="login-pass" type="password" name="password" placeholder="Password"></p>
+        <p><input id="login-submit" type="submit" value="Submit"></p>
 
-      <p><input id="login-submit" type="submit" value="Submit"></p>
     </form>
+
+  {% endif %}
+
+{% if user_login %}
+<form id="user-ratings">
+
+  <h1>My Completed Hikes</h1>
+
+  <ul class="list-group">
+    {% for rating in ratings %}
+      <li class="list-group-item">
+          <a href="/hikeList/{{rating.hike.hike_id}}" class="ratings">     
+          For {{ rating.hike.name }}<br>
+          </a>
+          Rating: {{ rating.rating }}<br>
+          Comments: {{ rating.comments }}
+      </li>
+    {% endfor %}
+  </ul>
+
+</form>
+{% endif %}
   </div>
 
-  <div id = hike-list class="col-5">
-    <h2>(hike list)</h2>
-    <img src="/static/hike.jpg">
-  </div>
+  <div class="col-6">
+    {% if user_login %}
 
-  <div id = hike-details class="col-5">
-    <h2>(hike details)</h2>  
+    <!-- For google map  -->
+    <h3>Google Maps Location</h3>
+      
+    <!--The div element for the map -->
+    <div id="map"></div>
+    {% endif %}
+
   </div>
 
 </div>
 
-<!-- For hikes  -->
+<!-- {% if user_login %} -->
 
-<section class="p-5">
-  <div class="container">
-    <div class="row text-center">
 
-      <div class="col">
-        <div class="card bg-light text-dark">
-          Column 1
-        </div>
-      </div>
-      <div class="col">
-        <div class="card bg-light text-dark">
-        Column 2
-        </div>
-      </div>
-      <div class="col">
-        <div class="card bg-light text-dark">
-        Column 3
-        </div>
-      </div>
-    
-    </div>
+<!-- {% endif %} -->
+
+ 
   </div>
-</section>
-
-<div class="row">
-  <div class="col-2">
-
-    
-    <h2>Bookmarks</h2>
-    
-    <table style="width:30%">
-      <tr>
-        <td>Wish List Hikes</td>
-        <td>Tobias</td>
-        <td>Linus</td>
-      </tr>
-      <tr>
-        <td>16</td>
-        <td>14</td>
-        <td>10</td>
-      </tr>
-    </table>
-   
-
-    
-    
 
 
-
-
-    <form id="user-bookmarks">
-    <h5>Bookmarks</h5>
-
-      <!-- removed from line above  action="/login" method="POST"-->
-
-      <p>Saved Hikes: <input id="saved-hikes" name="saved-hikes"></p>
-      <!-- List Bookmarks where is_completed == False  -->
-
-      <p>Completed Hikes: <input id="completed-hikes" name="completed-hikes"></p>
-      <!-- List Bookmarks where is_completed == True  -->
-
-    </form>
-
-  </div>
-</div>
-
-
-
-
-
+    <!--  hidden input of current session email  -->
+    <div>
+      <input 
+     id = "hidden-user-email" 
+     type= "hidden" 
+     name="user-email" 
+     value= {{ user_login }}>
+   </div>
 
 
 {% endblock %}
   
 {% block scripts %}
   <script src="/static/search.js"></script>
+
+   <!-- Autocomplete Google Map with Search Bar  -->
+   <script
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
+   async
+   ></script>
+
 {% endblock %}

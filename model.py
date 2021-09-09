@@ -1,4 +1,4 @@
-"""Models for hiking app."""
+"""Model for hiking app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -21,29 +21,6 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
-
-
-# class Hike(db.Model):
-#     """A hike."""
-
-#     __tablename__ = "hikes"
-
-#     hike_id = db.Column(db.Integer,
-#                         autoincrement=True,
-#                         primary_key=True)
-#     rating_id = db.Column(db.Integer)
-#     location_id = db.Column(db.Integer)
-#     name = db.Column(db.String(250))
-#     zipcode = db.Column(db.Integer)  # add nullability
-#     hike_length = db.Column(db.Integer)  # in miles
-#     dog_friendly = db.Column(db.Boolean)  
-#     average_rating = db.Column(db.Float)
-
-#     # ratings = a list of Rating objects
-#     # bookmarks = a list of Bookmark objects
-
-#     def __repr__(self):
-#         return f'<Hike hike_id={self.hike_id} name={self.name} zipcode={self.zipcode}>'
 
 
 class Hike(db.Model):

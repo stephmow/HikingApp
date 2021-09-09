@@ -2,7 +2,7 @@
 
 from model import db, User, Hike, Rating, Bookmark, connect_to_db
 
-# Create functions 
+# Create Functions 
 
 def create_user(email, password):
     """Create and return a new user."""
@@ -51,14 +51,12 @@ def create_rating(user, hike, rating, comments=''):
 
 
 # Retrieve functions 
-    #User
 
 def get_user_by_email(email):
     """Return a user by email."""
 
     return User.query.filter(User.email == email).first()
 
-    #Hikes 
 
 def get_all_hikes():
     """Return all hikes"""
@@ -90,7 +88,7 @@ def get_hike_coords(hike_id):
 def get_bookmark_coords(user_id):
     """Return json dict of all bookmarked hike coordinates"""
 
-    bookmark_coord = db.session.query(Hike.latitude, Hike.longitude, Hike.hike_id).join(Bookmark).filter(Bookmark.user_id == user_id)
+    bookmark_coord = db.session.query(Hike.latitude, Hike.longitude, Hike.hike_id).join(Bookmark).filter(Bookmark.user_id == user_id).all()
 
     bookmark_list =[]
 
@@ -102,10 +100,11 @@ def get_bookmark_coords(user_id):
 
     return (bookmark_list)
 
-def get_bookmark_coords(user_id):
+
+def get_rating_coords(user_id):
     """Return json dict of all completed hike coordinates"""
 
-    rating_coord = db.session.query(Hike.latitude, Hike.longitude, Hike.hike_id).join(Rating).filter(Rating.user_id == user_id)
+    rating_coord = db.session.query(Hike.latitude, Hike.longitude, Hike.hike_id).join(Rating).filter(Rating.user_id == user_id).all()
 
     rating_list =[]
 
@@ -118,16 +117,13 @@ def get_bookmark_coords(user_id):
     return (rating_list)
 
 
+def get_bookmarks_by_user_id(user_id):
 
-    # Bookmarks / Ratings
-
-def get_bookmarks_obj_by_user_email(user_email):
-
-    return Bookmark.query.filter(User.email == user_email)
+    return Bookmark.query.filter(Bookmark.user_id == user_id).all()
 
 def get_bookmarks_by_user_email(user_email):
 
-    bookmarks = Bookmark.query.filter(User.email == user_email)
+    bookmarks = Bookmark.query.filter(User.email == user_email).all()
     bookmarks_list = []
 
     for bookmark in bookmarks: 
@@ -139,18 +135,13 @@ def get_bookmarks_by_user_email(user_email):
     return bookmarks_list
 
 
-def check_bookmark(bookmark_id):
+def get_ratings_by_user_id(user_id):
 
-    return Bookmark.query.filter(Bookmark.bookmark_id == bookmark_id)    
-
-
-def get_ratings_obj_by_user_email(user_email):
-
-    return Rating.query.filter(User.email == user_email)
+    return Rating.query.filter(Rating.user_id == user_id).all()
 
 def get_ratings_by_user_email(user_email):
 
-    ratings = Rating.query.filter(User.email == user_email)
+    ratings = Rating.query.filter(User.email == user_email).all()
     ratings_list = []
 
     for rating in ratings: 
@@ -161,7 +152,6 @@ def get_ratings_by_user_email(user_email):
     return ratings_list
 
 
-
 # def check_hike(user_id, hike_id):
     """Check if a hike is in the Bookmarks database"""
     # check if user_id and hike_id have a bookmark
@@ -170,10 +160,17 @@ def get_ratings_by_user_email(user_email):
     # if Bookmark.query.filter(User.user_id) == user_id and Bookmark.query.filter(hike_id)
 
     
-
 # Delete functions
-    # DELETE BOOKMARK  -- IF USER CREATES RATING (I.E. IS_COMPLETE == TRUE), THEN DELETE BOOKMARK
-    # DELETE RATING
+    # DELETE BOOKMARK  
+def delete_bookmark(user, hike):  
+    """Delete a bookmark for a hike"""
+
+    hike_bookmark = Bookmark.query.filter(Bookmark.user == user, Bookmark.hike == hike).one()
+    
+    db.session.delete(hike_bookmark)
+    db.session.commit()
+
+    return hike_bookmark
 
 
 

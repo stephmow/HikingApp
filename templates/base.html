@@ -22,11 +22,7 @@
   </head>
 
   <body>
-    {% for msg in get_flashed_messages() %}
-      <p class="flash-msg">
-        {{ msg }}
-      </p>
-    {% endfor %}
+
 
 <!-- 
     <a class="navbar-brand" href="#">Brand</a>
@@ -50,6 +46,20 @@
     </div>
 
 
+    <div class="nav navbar-nav navbar-left" id="myNavbar-flash">
+      <li>
+
+        {% for msg in get_flashed_messages() %}
+        <p class="flash-msg">
+          {{ msg }}
+        </p>
+        {% endfor %}
+
+      </li>
+  </div>
+
+
+
 <!-- 
     <div class="navbar-collapse" id="myNavbar-email">
       <ul class="nav navbar-nav navbar-right">
@@ -64,6 +74,8 @@
     </div>
 
 </nav>
+
+
 
     
 

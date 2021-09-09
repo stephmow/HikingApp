@@ -1,6 +1,8 @@
 import requests
+import os
 
-API_KEY = 'AIzaSyBGeOCEe50xco2FJA73vuRrVMGtHa9SJVs'
+API_KEY = os.environ['GOOGLE_API_KEY']
+
 
 
 # https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=YOUR_API_KEY

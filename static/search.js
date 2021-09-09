@@ -8,38 +8,41 @@
   //   alert('testing 2');
   // });
 
+// USER LOGIN - REMOVE CREATE ACCOUNT / LOGIN FORMS
 
-// Example - for logged in page 
 $('#user-login').on('submit', (evt) => {
   evt.preventDefault(); 
-  console.log('test from user-login script');
+  // console.log('test from user-login script');
 
   const formInputs = {
     'email': $('#login-email').val(),
     'password': $('#login-pass').val()
   };   
-  console.log(formInputs);
+  // console.log(formInputs);
 
   $.post('/login', formInputs, (res) => {
-    alert(res);
+    // alert(res);
 
-    if(res == "You are logged in.") {
+    if (res == "You are logged in.") {
       $("#user-login").toggle(2000);   
       $("#create-account").toggle(2000);   
       $('#userName').text(formInputs['email']);
-      // $('#user-ratings').css("display", "inline");
-      // $('#user-bookmarks').toggle();
+    };
+
+      $.get('/loggedin', (response) =>{
+        $(".homepage-loggedin").html(response);
+        // console.log(response);
+        // alert('logged in resposne');
+      });
+
       // $('#myNavbar-login').css("visibility", "visible");
       // $('#myNavbar-login').text("Logout");
 
-      };
+  
     });
   });
 
-// list of dictionaries 
-// data = [{'lat': '32.20343', 'lng': '-110.70985', 'hike_id': 94},   {'lat': '36.23035', 'lng': '-116.7668', 'hike_id': 256}] 
-
-
+// GOOGLE MAP - APPEARS WHEN USER IS LOGGED IN 
 
 const latlng = {lat: 37.7749, lng: -122.4194};
 // const latlng_list = []
@@ -49,6 +52,13 @@ function initAutocomplete() {
 
     // Hike coordinates
     // let hikeID = $("#hidden-hike-id").val()
+            
+    // The map, centered at given coordinates
+    var map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 5,
+      center: latlng,
+      mapTypeId: "roadmap"
+      });
 
     $.get('/bookmarks/map.json', (data) => {
       // for item in bookmark_list 
@@ -56,19 +66,12 @@ function initAutocomplete() {
 
         console.log("given coordinates are: ", data);
 
-        // The map, centered at given coordinates
-        var map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 5,
-            center: latlng,
-            mapTypeId: "roadmap"
-        });
-
         // markers for bookmarked (saved) hikes
         var marker, i;
         
         for (i = 0; i < data.length; i++) {  
 
-          console.log("google coordinates are: ", data[i]['lat'], data[i]['lng']);
+          console.log("BOOKMARKED coordinates are: ", data[i]['lat'], data[i]['lng']);
 
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
@@ -78,34 +81,28 @@ function initAutocomplete() {
             },
           });
         }
-
     });
 
-    // $.get('/ratings/map.json', (data) => {
-    //     // The map, centered at given coordinates
-    //     var map = new google.maps.Map(document.getElementById("map"), {
-    //         zoom: 5,
-    //         center: latlng,
-    //         mapTypeId: "roadmap"
-    //     });
-
-    //     // markers for completed hikes
-    //     var marker, i;
+    $.get('/ratings/map.json', (data) => {
+   
+        // markers for completed hikes
+        var marker, i;
         
-    //     for (i = 0; i < data.length; i++) {  
+        for (i = 0; i < data.length; i++) {  
 
-    //       console.log("google coordinates are: ", data[i]['lat'], data[i]['lng']);
+          console.log("RATING coordinates are: ", data[i]['lat'], data[i]['lng']);
 
-    //       marker = new google.maps.Marker({
-    //         position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
-    //         map: map,
-    //         },
-    //       });
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
+            map: map,
+          });
         };
+    });
+
+
+  };
 
     
-
-  
   // Test getting all bookmark coordinates 
   $.get('/bookmarks/map.json', (res) => {
     console.log("test___test____test____test");

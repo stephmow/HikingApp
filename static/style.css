@@ -170,3 +170,13 @@ h5{
 #username {
   color: whitesmoke;
 }
+
+.flash-msg {
+  /* float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer; 
+  font-size:5px;  */
+  color: gray;
+}

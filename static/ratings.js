@@ -69,7 +69,9 @@ $('#ratings').on('submit', (evt) => {
 
   console.log(url)
 
-  $.post(url, {is_completed: "True", rating: rating, comments: comments});
+  $.post(url, {is_completed: "True", rating: rating, comments: comments}, (res) => {
+    $('#ratings-header').html(res);
+  });
 });
 
 // Add callback to post function to show a go back to home page button

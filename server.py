@@ -30,6 +30,17 @@ def show_home():
         return render_template('homepage.html', user_login=None)
 
 
+@app.route('/search')
+def search():
+    """Return list of all hikes"""
+    
+    hikes = crud.get_hike_search()  # returns a list
+
+    print('\n\n\n\ntesting\n\n')
+
+    return jsonify(hikes)  # convert list to string - not working
+
+
 @app.route('/loggedin')
 def logged_in():
     """send bookmarks, ratings and google forms to homepage when logged in"""
@@ -56,10 +67,13 @@ def create_account():
     user_password = request.form.get('password')
 
     if crud.get_user_by_email(user_email):   # if user_email is in the User database
-        flash("There is already an account with that email. Please log in.")
+        # flash("There is already an account with that email. Please log in.")
+        return "There is already an account with that email. Please log in."
+
     else:
         crud.create_user(user_email, user_password)  # adds user to the User database
-        flash("Your account is created. You can log in")
+        # flash("Your account is created. You can log in")
+        return "Your account is created. You can log in"
 
     return redirect('/')
 
@@ -69,18 +83,17 @@ def login():
     """AJAX route for users to login"""
 
     user_email = request.form.get('email')
+    print(user_email)
     user_password = request.form.get('password')
 
-    if crud.get_user_by_email(user_email):
-        if crud.get_user_by_email(user_email).password == user_password:
-            session['USER_EMAIL'] = user_email
-            print("\n\nCURRENT SESSION from '/login' ****= ", session['USER_EMAIL'], "\n\n")
-            return "You are logged in."
-        else:
-            return "Incorrect password, try again"
-
+    if crud.get_user_by_email(user_email).password == user_password:
+        session['USER_EMAIL'] = user_email
+        print("\n\nCURRENT SESSION from '/login' ****= ", session['USER_EMAIL'], "\n\n")
+        # flash("You are logged in.")
+        return "You are logged in."
     else:
-        return "Email does not exist"
+        # flash("Incorrect email or password. Please try again.")
+        return "Incorrect email or password. Please try again"
 
 
 @app.route('/bookmarks/map.json')

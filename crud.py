@@ -63,6 +63,22 @@ def get_all_hikes():
 
     return Hike.query.all()
 
+def get_hike_search():
+    """Return all relevant search info from hike db"""
+
+    hikes = Hike.query.all()
+    hike_search = []
+
+    for hike in hikes: 
+        if hike.name not in hike_search:
+            hike_search.append(hike.name)
+        if hike.city not in hike_search:
+            hike_search.append(hike.city)
+        if hike.zipcode is not None and hike.zipcode not in hike_search: 
+            hike_search.append(str(hike.zipcode))
+
+    return hike_search
+
 
 def get_hikes_by_zip():
     """Given a zipcode, provide list of nearby hikes"""

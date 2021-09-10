@@ -72,20 +72,28 @@
     </div>
 
     <div class="col-6">
-
-      <form id = "hike-search" action="/hikeList">
+<div class="ui-widget">
+  <form id = "hike-search" action="/hikeList" autocomplete="off">
 
         <h5> Search for a hike</h5>
         <input 
-          id="hike-search"
-          class="form-control"
+          label for = "hike-search-bar"
+          id="hike-search-bar"
+          class="ui-autocomplete-input"
           name="location-input" 
           placeholder="City, Zipcode or Name" 
           required="required"
           autocomplete="off">
         <p><input type="submit" value="Search"></p>
 
+
       </form>
+
+
+
+
+</div>
+    
       
     </div>
 
@@ -103,9 +111,22 @@
 
           <h5>Log In</h5>
           <!-- removed from line above  action="/login" method="POST"-->
-          <p> <input class="form-control" id="login-email" type="email" name="email" placeholder="Email"></p>
-          <p> <input class="form-control" id="login-pass" type="password" name="password" placeholder="Password"></p>
-          <p><input id="login-submit" type="submit" value="Submit"></p>
+          <p> <input class="form-control" 
+                    id="login-email" 
+                    type="email" 
+                    name="email-login" 
+                    required="required"
+                    placeholder="Email"></p>
+          <p> <input class="form-control" 
+                    id="login-pass" 
+                    type="password" 
+                    name="password-login" 
+                    required="required"
+                    placeholder="Password"></p>
+          <p><input id="login-submit" 
+                    type="submit" 
+                    value="Submit"></p>
+
 
         </form>
 
@@ -176,10 +197,5 @@
 
   <script src="/static/search.js"></script>
 
-   <!-- Autocomplete Google Map with Search Bar  -->
-   <script
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
-   async
-   ></script>
 
 {% endblock %}

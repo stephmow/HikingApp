@@ -17,7 +17,6 @@ Average Rating: {{ hike.average_rating }}
 
     <h2 id=bookmarks-header>Bookmark this hike</h2>
 
-      
       <input 
         type="radio" 
         name="bookmark" 
@@ -32,23 +31,16 @@ Average Rating: {{ hike.average_rating }}
 
       <input type="submit">
 
-<!-- 
-      <button type="button" id="bookmark-button" class="btn btn-success" name="bookmark" value="False">Save This Hike</button>
-      <p></p>
-
-      <button type="button" if="rating-button" class="btn btn-success" name="bookmark" value="True">Completed This Hike</button> -->
+  </form>
 
 
-    </form>
+  <form id = "ratings">
 
-
-<form id = "ratings">
-
-  <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
+    <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
   
-  <h2 id="ratings-header">Rate this hike</h2>
+    <h2 id="ratings-header">Rate this hike</h2>
 
-  <p>
+    <p>
 
     <div class="rate">
       <input type="radio" id="star5" name="rating" value="5" />
@@ -63,26 +55,28 @@ Average Rating: {{ hike.average_rating }}
       <label for="star1" title="text">1 star</label>
     </div>
 
-
       Comments
-    <input type="text" name="comments">
+
+    <input type="text" 
+          name="comments">
 
     <button type="submit">Submit</button>
    
-  </p>
-</form>
+    </p>
+
+  </form>
 
 {% endif %}
 
 
     <!--  hidden input of hike_id  -->
-    <div>
+  <div>
       <input 
      id = "hidden-hike-id" 
      type= "hidden" 
      name="hike_id" 
      value= {{ hike.hike_id }}>
-   </div>
+  </div>
 
 
     <!-- For google map  -->
@@ -96,19 +90,11 @@ Average Rating: {{ hike.average_rating }}
 
 {% block scripts %}
 
-    <script src="/static/ratings.js"></script> 
+  <script src="/static/ratings.js"></script> 
 
-    <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
-    <script src="/static/map.js"></script>
+  <script src="/static/map.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-  <!-- Autocomplete Google Map with Search Bar  -->
-  <script
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
-  async
-  ></script>
-
 
 
 {% endblock %}

@@ -2,108 +2,71 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" 
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+          crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="/static/style.css" 
+          rel="stylesheet"> 
 
-    <script   
-    src="https://code.jquery.com/jquery-3.6.0.js"   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
-
-    <link href="/static/style.css" rel="stylesheet"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"   
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+          crossorigin="anonymous"></script> 
 
     <!-- stylesheets for nav bar  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" 
+          rel="stylesheet">
 
     <!-- Google Map with Search Bar  -->
-   <script
-   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
-   async
-   ></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
+   async></script>
 
-    <title>{% block title %}{% endblock %}</title>
+   <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Script tags from getbootstrap.com -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"          
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"  
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    {% block title %}{% endblock %}
+
     {% block head %}{% endblock %}
+
   </head>
 
   <body>
 
+    <nav class="navbar sticky-top navbar-custom navbar-default bg-light">
 
-<!-- 
-    <a class="navbar-brand" href="#">Brand</a>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-left">
-          <li><a href="#">Left</a></li>
-          <li><a href="#about">Left</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about">Right</a></li>
-        <li><a href="#contact">Right</a></li>
-      </ul>
-    </div>
-  </nav> -->
+        <div class="nav navbar-nav navbar-left" id="myNavbar-home">
+          <li><a href="/">Home</a></li>
+        </div>
 
+        <div class="nav navbar-nav navbar-left" id="myNavbar-flash">
+          <li><div id = "flash-message"><span style="color:navy" id="flash-message"></span></div></li>
+        </div>
 
-<nav class="navbar sticky-top navbar-custom navbar-default bg-light">
+        <div class="nav navbar-nav navbar-right" id="myNavbar-login">
+          <li><a href="/logout">Logout</a></li> 
+        </div>
 
-    <div class="nav navbar-nav navbar-left" id="myNavbar-home">
-        <li><a href="/">Home</a></li>
-    </div>
+    </nav>
 
 
-    <div class="nav navbar-nav navbar-left" id="myNavbar-flash">
-      <li>
+    {% block body %}{% endblock %}
 
-      <div id = "flash-message">
-        <span style="color:navy" id="flash-message"></span>
-      </div>
-
-        {% for msg in get_flashed_messages() %}
-        <p class="flash-msg">
-          {{ msg }}
-        </p>
-        {% endfor %}
-
-      </li>
-  </div>
-
-
-<!-- 
-
-    <div class="navbar-collapse" id="myNavbar-email">
-      <ul class="nav navbar-nav navbar-right">
-        <li> Welcome <span style="color:navy" id="userName"></span></li>
-      </ul>
-    </div> -->
-
-
-    <div class="nav navbar-nav navbar-right" id="myNavbar-login">
-
-        <li><a href="/logout">Logout</a></li>
-    </div>
-
-</nav>
-
-
-
-    
-
-    {% block body %}
-
-
-    {% endblock %}
-
-    <!-- Script tags from getbootstrap.com -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-
-    {% block scripts %}
-
-    
-    {% endblock %}
+    {% block scripts %}{% endblock %}
 
     {% block after_body %}{% endblock %}
-</body>
+
+  </body>
+  
 </html>

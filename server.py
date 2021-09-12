@@ -1,7 +1,7 @@
 """Server for hiking app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
-from model import connect_to_db
+from flask import (Flask, render_template, request, session, redirect, jsonify)
+from model import Bookmark, Hike, connect_to_db
 import crud
 from jinja2 import StrictUndefined
 import os
@@ -10,22 +10,28 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
-# RAPID_API_KEY = os.environ['RAPID_API_KEY'] 
+# RAPID_API_KEY = os.environ['RAPID_API_KEY'] Found a more robust hiking data to use
 
 
 @app.route('/')
 def show_home():
     """Display homepage"""
 
+
     user_login = session.get("USER_EMAIL")
     user = crud.get_user_by_email(user_login)
+
 
     print("\n\n\ncurrent logged in user is from '/' route:", user_login)
 
     if user_login:
+
         bookmarks = crud.get_bookmarks_by_user_id(user.user_id)
+    
         ratings = crud.get_ratings_by_user_id(user.user_id)
+
         return render_template('homepage.html', user_login=user_login, bookmarks=bookmarks, ratings=ratings)
+
     else: 
         return render_template('homepage.html', user_login=None)
 
@@ -38,7 +44,7 @@ def search():
 
     print('\n\n\n\ntesting\n\n')
 
-    return jsonify(hikes)  # convert list to string - not working
+    return jsonify(hikes)  # convert list to string
 
 
 @app.route('/loggedin')
@@ -49,7 +55,6 @@ def logged_in():
     user = crud.get_user_by_email(user_login)
 
     bookmarks = crud.get_bookmarks_by_user_id(user.user_id)
-    print("\n\n\n\n****bookmarks[0]=",bookmarks[0])
 
     ratings = crud.get_ratings_by_user_id(user.user_id)
     print("\n\n\ncurrent logged in user is from '/loggedin' route: user_login is ", user_login)
@@ -67,15 +72,13 @@ def create_account():
     user_password = request.form.get('password')
 
     if crud.get_user_by_email(user_email):   # if user_email is in the User database
-        # flash("There is already an account with that email. Please log in.")
         return "There is already an account with that email. Please log in."
 
     else:
         crud.create_user(user_email, user_password)  # adds user to the User database
-        # flash("Your account is created. You can log in")
         return "Your account is created. You can log in"
 
-    return redirect('/')
+    # return redirect('/')
 
 
 @app.route('/login', methods = ["POST"])
@@ -89,11 +92,17 @@ def login():
     if crud.get_user_by_email(user_email).password == user_password:
         session['USER_EMAIL'] = user_email
         print("\n\nCURRENT SESSION from '/login' ****= ", session['USER_EMAIL'], "\n\n")
-        # flash("You are logged in.")
         return "You are logged in."
     else:
-        # flash("Incorrect email or password. Please try again.")
         return "Incorrect email or password. Please try again"
+
+
+@app.route('/logout')
+def user_logout():
+    """Logout user"""
+
+    session.clear()
+    return redirect('/')
 
 
 @app.route('/bookmarks/map.json')
@@ -139,12 +148,33 @@ def hike_list():
     return render_template('all_hikes.html', hikes=hikes, input=input)
 
 
-@app.route('/logout')
-def user_logout():
-    """Logout user"""
+@app.route('/delete_bookmark', methods = ["POST"])
+def delete_bookmark():
+    """Deletes corresponding bookmark"""
 
-    session.clear()
-    return redirect('/')
+    hike_id = request.form.get('hike-id')  # receives hike-id from 'home.js' post 
+    print("\n\n\nbookmark: ",hike_id)
+    user_login = session.get("USER_EMAIL")
+    user = crud.get_user_by_email(user_login)
+
+    crud.delete_bookmark(user = user, hike_id = hike_id) 
+
+    return "Bookmark has been deleted."
+
+
+
+@app.route('/delete_rating', methods = ["POST"])
+def delete_rating():
+    """Deletes corresponding rating"""
+
+    hike_id = request.form.get('hike-id')  # receives hike-id from 'home.js' post 
+    user_login = session.get("USER_EMAIL")
+    user = crud.get_user_by_email(user_login)
+
+    crud.delete_rating(user = user, hike_id = hike_id) 
+
+    return "Rating for {{hike_id}} has been deleted."
+
 
 
 @app.route('/hikeList/<hike_id>')
@@ -226,8 +256,12 @@ def create_rating(hike_id):
         is_completed = None     
 
     ratings = crud.get_ratings_by_user_email(user_login)
+    bookmarks = crud.get_bookmarks_by_user_email(user_login)
 
     print(ratings)
+
+    user = crud.get_user_by_email(session['USER_EMAIL'])
+    hike = crud.get_hike_details(session['CURRENT_HIKE'])
 
     if is_completed == True:
         for rating in ratings:
@@ -236,17 +270,41 @@ def create_rating(hike_id):
             if int(rating['hike_id']) == int(session['CURRENT_HIKE']):
                 # print('\n\n\n******HIKE has already been rated******')
                 return('You already completed and rated this hike.')
-        
-        user = crud.get_user_by_email(session['USER_EMAIL'])
-        hike = crud.get_hike_details(session['CURRENT_HIKE'])
 
         crud.create_rating(user = user, hike = hike, rating = user_rating, comments = comments)
 
-        crud.delete_bookmark(user = user, hike = hike)
+        crud.delete_bookmark(user = user, hike_id = hike_id)
 
         # print('\n\n\n******HIKE rated******')
         return('Rating added for this hike.')
 
+
+
+        # 1. HIKE ALREADY IN RATINGS, THEN SAY YOU ALREADY COMPLETED THIS Hike
+        # 2. HIKE IS NOT ALREADY IN RATINGS AND IS IN BOOKMARKS, THEN CREATE RATING AND DELETE Bookmark
+        # 3. HIKE IS NOT ALREADY IN RATINGS AND IS NOT ALREADY IN BOOKMARKS, THEN CREATE RATING. 
+    # if is_completed == True:   
+    #     for rat in ratings:
+    #         print("\n ", rat['hike_id'])
+    #         print("\n\n current hike session is", session["CURRENT_HIKE"])
+    #         if int(rat['hike_id']) == int(session['CURRENT_HIKE']):
+    #             print('\n\n\n****** #1 HIKE has already been rated******')
+    #             return 'You already completed and rated this hike.'
+    #         elif int(rat['hike_id']) != int(session['CURRENT_HIKE']):
+    #             for bookmark in bookmarks:
+    #                 if int(bookmark['hike_id']) == int(session['CURRENT_HIKE']):
+    #                     crud.create_rating(user = user, hike = hike, rating = user_rating, comments = comments)
+    #                     crud.delete_bookmark(user = user, hike_id = hike_id)
+    #                     print('\n\n\n****** #2 HIKE was not in ratings butwas in bookmarks. created rating and deleted bookmark*****')
+    #                     return 'Rating added for this hike. Saved bookmark has been removed'
+
+    #         elif int(rat['hike_id']) != int(session['CURRENT_HIKE']):
+    #             for bookmark in bookmarks:
+    #                 if int(session['CURRENT_HIKE']) != int(bookmark['hike_id']):
+    #                     crud.create_rating(user = user, hike = hike, rating = user_rating, comments = comments)    
+    #                     print('\n\n\n****** #e HIKE was not in ratings and not in bookmarks. created rating*****')
+    #                     return 'Rating added for this hike.'
+ 
 
 if __name__ == "__main__":
     # DebugToolbarExtension(app)

@@ -9,9 +9,11 @@ import crud, model, server
 import geocoder
 import requests
 
+GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
-os.system('dropdb hikedb') 
-os.system('createdb hikedb')
+# review syntax for below 
+# os.system("dropdb hikedb") 
+# os.system("createdb hikedb")
 
 model.connect_to_db(server.app)
 model.db.create_all()
@@ -40,7 +42,7 @@ def seed_from_csv():
             # Geocode API Call for zipcode 
             latlng = latitude + ", " + longitude
             params = {
-                        'key': API_KEY, 
+                        'key': GOOGLE_API_KEY, 
                         'latlng': latlng
                     }
 

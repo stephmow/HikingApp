@@ -8,7 +8,7 @@ $('#ratings').hide();
 
 $('#test-form').submit(function(evt) {
   evt.preventDefault();  
-  alert('test alert');
+  // alert('test alert');
   console.log('test from fake click') });
 
 
@@ -36,7 +36,6 @@ $('#bookmarks').on('submit', (evt) => {
     
     // get <hike_id> from hike_details.html bookmark form 
     $.post(url, {is_completed: "False"}, (res) => {
-      alert('got here.');
       $('#bookmarks-header').html(res);
     });
   }
@@ -71,6 +70,7 @@ $('#ratings').on('submit', (evt) => {
 
   $.post(url, {is_completed: "True", rating: rating, comments: comments}, (res) => {
     $('#ratings-header').html(res);
+    console.log(res);
   });
 });
 

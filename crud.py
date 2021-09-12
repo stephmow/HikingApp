@@ -111,7 +111,8 @@ def get_bookmark_coords(user_id):
     for item in bookmark_coord:
         bookmark_dict = {'lat' : item[0],
                         'lng' : item[1],
-                        'hike_id' : item[2]}
+                        'hike_id' : str(item[2])}
+        print(bookmark_dict)
         bookmark_list.append(bookmark_dict)
 
     return (bookmark_list)
@@ -177,17 +178,25 @@ def get_ratings_by_user_email(user_email):
 
     
 # Delete functions
-    # DELETE BOOKMARK  
-def delete_bookmark(user, hike):  
+def delete_bookmark(user, hike_id):  
     """Delete a bookmark for a hike"""
 
-    hike_bookmark = Bookmark.query.filter(Bookmark.user == user, Bookmark.hike == hike).one()
+    hike_bookmark = Bookmark.query.filter(Bookmark.user == user, Bookmark.hike_id == hike_id).one()
     
     db.session.delete(hike_bookmark)
     db.session.commit()
 
     return hike_bookmark
 
+def delete_rating(user, hike_id):  
+    """Delete a rating for a hike"""
+
+    hike_rating = Rating.query.filter(Rating.user == user, Rating.hike_id == hike_id).one()
+    
+    db.session.delete(hike_rating)
+    db.session.commit()
+
+    return hike_rating
 
 
 if __name__ == '__main__':

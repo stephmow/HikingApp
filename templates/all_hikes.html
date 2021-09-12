@@ -3,10 +3,9 @@
 
 {% block body %}
     
-
 <div class="row">
 
-See below list of hikes near {{input}}.
+  See below list of hikes near {{input}}.
 
 </div>
  
@@ -15,7 +14,9 @@ See below list of hikes near {{input}}.
   <div class="col-4">
 
     {% for hike in hikes %}
-      {% if input == hike.city or input == hike.zipcode or input == hike.name%}
+      {% set zip = hike.zipcode | string() %} 
+      {% if input == hike.city or input == zip or input == hike.name %}
+
       <ul class = "list-group">
         <li class="list-group-item">
           <a href="/hikeList/{{ hike.hike_id }}">
@@ -27,39 +28,8 @@ See below list of hikes near {{input}}.
     {% endfor %}
 
   </div>
-<!-- 
-  <div class="col-1">
-
-    {% for hike in hikes %}
-      {% if input == hike.city or input == hike.zipcode or input == hike.name%}
-      <ul class = "list-group">
-        <li class="list-group-item">
-            {{ hike.difficulty }}
-          </a>
-        </li>
-      </ul>
-      {% endif %}
-    {% endfor %}
-
-  </div> -->
-<!-- 
-  <div class="col-2">
-
-    {% for hike in hikes %}
-      {% if input == hike.city or input == hike.zipcode or input == hike.name%}
-      <ul class = "list-group">
-        <li class="list-group-item">
-            {{ hike.route_type }}
-          </a>
-        </li>
-      </ul>
-      {% endif %}
-    {% endfor %}
-
-  </div> -->
 
 </div>
-
 
 
 

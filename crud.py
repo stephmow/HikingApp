@@ -63,6 +63,7 @@ def get_all_hikes():
 
     return Hike.query.all()
 
+
 def get_hike_search():
     """Return all relevant search info from hike db"""
 
@@ -101,6 +102,26 @@ def get_hike_coords(hike_id):
 
     return {'lat': lat, 'lng': lng}
 
+
+def get_bookmarks_by_user_id(user_id):
+
+    return Bookmark.query.filter(Bookmark.user_id == user_id).all()
+
+
+def get_bookmarks_by_user_email(user_email):
+
+    bookmarks = Bookmark.query.filter(User.email == user_email).all()
+    bookmarks_list = []
+
+    for bookmark in bookmarks: 
+        bookmarks_dict = {'bookmark_id': bookmark.bookmark_id, 
+                            'hike_id': bookmark.hike_id,
+                            'is_completed': bookmark.is_completed }
+        bookmarks_list.append(bookmarks_dict)
+
+    return bookmarks_list
+
+
 def get_bookmark_coords(user_id):
     """Return json dict of all bookmarked hike coordinates"""
 
@@ -118,6 +139,24 @@ def get_bookmark_coords(user_id):
     return (bookmark_list)
 
 
+def get_ratings_by_user_id(user_id):
+
+    return Rating.query.filter(Rating.user_id == user_id).all()
+
+
+def get_ratings_by_user_email(user_email):
+
+    ratings = Rating.query.filter(User.email == user_email).all()
+    ratings_list = []
+
+    for rating in ratings: 
+        rating_dict = {'rating_id': rating.rating_id, 
+                            'hike_id': rating.hike_id}
+        ratings_list.append(rating_dict)
+
+    return ratings_list
+
+
 def get_rating_coords(user_id):
     """Return json dict of all completed hike coordinates"""
 
@@ -133,51 +172,9 @@ def get_rating_coords(user_id):
 
     return (rating_list)
 
-
-def get_bookmarks_by_user_id(user_id):
-
-    return Bookmark.query.filter(Bookmark.user_id == user_id).all()
-
-def get_bookmarks_by_user_email(user_email):
-
-    bookmarks = Bookmark.query.filter(User.email == user_email).all()
-    bookmarks_list = []
-
-    for bookmark in bookmarks: 
-        bookmarks_dict = {'bookmark_id': bookmark.bookmark_id, 
-                            'hike_id': bookmark.hike_id,
-                            'is_completed': bookmark.is_completed }
-        bookmarks_list.append(bookmarks_dict)
-
-    return bookmarks_list
-
-
-def get_ratings_by_user_id(user_id):
-
-    return Rating.query.filter(Rating.user_id == user_id).all()
-
-def get_ratings_by_user_email(user_email):
-
-    ratings = Rating.query.filter(User.email == user_email).all()
-    ratings_list = []
-
-    for rating in ratings: 
-        rating_dict = {'rating_id': rating.rating_id, 
-                            'hike_id': rating.hike_id}
-        ratings_list.append(rating_dict)
-
-    return ratings_list
-
-
-# def check_hike(user_id, hike_id):
-    """Check if a hike is in the Bookmarks database"""
-    # check if user_id and hike_id have a bookmark
-
-    # Bookmark.query.filter(user_id = user_id)
-    # if Bookmark.query.filter(User.user_id) == user_id and Bookmark.query.filter(hike_id)
-
     
 # Delete functions
+
 def delete_bookmark(user, hike_id):  
     """Delete a bookmark for a hike"""
 
@@ -187,6 +184,7 @@ def delete_bookmark(user, hike_id):
     db.session.commit()
 
     return hike_bookmark
+
 
 def delete_rating(user, hike_id):  
     """Delete a rating for a hike"""

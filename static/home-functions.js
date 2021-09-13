@@ -1,11 +1,23 @@
  "use strict";
 
 //  Function to hide flashed message after 3 seconds
-function flash() {
+function flash(res) {
+
+  $("#flash-msg").show();
+
+  $("#flash-msg").html(res);
+
+  // This isn't working, but might be close to reload the div. 
+  // $("#flash-message").load(location.href + " #flash-message");  
+
+  console.log(res);
+
   setTimeout(function(){
-      $("#flash-message").hide("2000")
+      $("#flash-msg").hide("2000")
       }, 3000);
-    };
+
+};
+
 
 // Function for autocomplete 
 function autocomplete(inp, arr) {

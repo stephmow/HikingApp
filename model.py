@@ -36,7 +36,7 @@ class Hike(db.Model):
     city = db.Column(db.String)
     latitude = db.Column(db.String)
     longitude = db.Column(db.String)
-    zipcode = db.Column(db.String)  # add nullability
+    zipcode = db.Column(db.String)  
     name = db.Column(db.String)
     hike_length = db.Column(db.Float)  # in miles
     average_rating = db.Column(db.Float)
@@ -65,7 +65,7 @@ class Rating(db.Model):
               db.ForeignKey("hikes.hike_id"))
     user_id = db.Column(db.Integer, 
               db.ForeignKey("users.user_id"))
-    comments = db.Column(db.String(300))  # should this be in bookmarks instead??? 
+    comments = db.Column(db.String(300))  
 
     hike = db.relationship("Hike", backref="ratings")
     user = db.relationship("User", backref="ratings")
@@ -86,8 +86,7 @@ class Bookmark(db.Model):
                         db.ForeignKey("hikes.hike_id"))
     user_id = db.Column(db.Integer, 
                         db.ForeignKey("users.user_id"))
-    is_completed = db.Column(db.Boolean)  
-        # True = Completed; False = Wish List 
+    is_completed = db.Column(db.Boolean)  # True = Completed; False = Bookmark/Save for later 
 
     hike = db.relationship("Hike", backref="bookmarks")
     user = db.relationship("User", backref="bookmarks")

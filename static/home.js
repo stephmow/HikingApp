@@ -12,7 +12,6 @@ $.get('/search', (res) => {
 
 
 
-
 // GOOGLE MAP - APPEARS WHEN USER IS LOGGED IN 
 const latlng = {lat: 37.7749, lng: -122.4194};
 // const latlng_list = []
@@ -110,23 +109,34 @@ $('#user-login').on('submit', (evt) => {
       $("#create-account").toggle(2000);   
       $('#userName').text(formInputs['email']);
 
-      $("#flash-message").html(res);
-      flash();
+      // $("#flash-message").html(res);
+      flash(res);
+
+
+
+
 
       // Add logout button to nav bar in 'base.html' 
       // $('#myNavbar-login').html('<li><a href="/logout">Logout</a></li>');
 
+    
+
       $.get('/loggedin', (response) => {
-        $(".homepage-loggedin").html(response);
-        // console.log(response);
-        // alert('logged in resposne');
-        initAutocomplete();
+
+        $(".homepage-loggedin").fadeOut(500, function() {
+          $(this).html(response);
+          $(this).fadeIn(500);
+        });
+      
+        initAutocomplete();    // where should i put this...this. 
+
+
       });
     }
 
     else {
-      $("#flash-message").html(res);
-      flash();
+      // $("#flash-message").html(res);
+      flash(res);
     }
 
   });
@@ -147,8 +157,8 @@ $('#create-account').on('submit', (evt) => {
 
   $.post('/users', formInputs, (res) => {
 
-    $("#flash-message").html(res);
-    flash();
+    // $("#flash-message").html(res);
+    flash(res);
   });
 });
 

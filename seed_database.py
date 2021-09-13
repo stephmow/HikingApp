@@ -11,9 +11,9 @@ import requests
 
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
-# review syntax for below 
-# os.system("dropdb hikedb") 
-# os.system("createdb hikedb")
+# review syntax for below  
+os.system("dropdb hikedb") 
+os.system("createdb hikedb")
 
 model.connect_to_db(server.app)
 model.db.create_all()

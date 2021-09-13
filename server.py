@@ -1,7 +1,7 @@
 """Server for hiking app."""
 
 from flask import (Flask, render_template, request, session, redirect, jsonify)
-from model import Bookmark, Hike, connect_to_db
+from model import Bookmark, Hike, User, Rating, connect_to_db
 import crud
 from jinja2 import StrictUndefined
 import os
@@ -17,10 +17,8 @@ GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 def show_home():
     """Display homepage"""
 
-
     user_login = session.get("USER_EMAIL")
     user = crud.get_user_by_email(user_login)
-
 
     print("\n\n\ncurrent logged in user is from '/' route:", user_login)
 
@@ -40,16 +38,14 @@ def show_home():
 def search():
     """Return list of all hikes"""
     
-    hikes = crud.get_hike_search()  # returns a list
+    hikes = crud.get_hike_search()  
 
-    print('\n\n\n\ntesting\n\n')
-
-    return jsonify(hikes)  # convert list to string
+    return jsonify(hikes)  
 
 
 @app.route('/loggedin')
 def logged_in():
-    """send bookmarks, ratings and google forms to homepage when logged in"""
+    """Send bookmarks, ratings and google forms to homepage when logged in"""
 
     user_login = session.get("USER_EMAIL")
     user = crud.get_user_by_email(user_login)
@@ -57,11 +53,10 @@ def logged_in():
     bookmarks = crud.get_bookmarks_by_user_id(user.user_id)
 
     ratings = crud.get_ratings_by_user_id(user.user_id)
-    print("\n\n\ncurrent logged in user is from '/loggedin' route: user_login is ", user_login)
-    print("\n\n\ncurrent logged in user is from '/loggedin' route: session is ", session['USER_EMAIL'])
+    # print("\n\n\ncurrent logged in user is from '/loggedin' route: user_login is ", user_login)
+    # print("\n\n\ncurrent logged in user is from '/loggedin' route: session is ", session['USER_EMAIL'])
 
-
-    return render_template('homepage_loggedin.html', user_login=user_login, ratings = ratings, bookmarks = bookmarks)
+    return render_template('homepage-loggedin.html', user_login = user_login, ratings = ratings, bookmarks = bookmarks)
 
 
 @app.route('/users', methods = ["POST"])
@@ -71,11 +66,11 @@ def create_account():
     user_email = request.form.get('email')
     user_password = request.form.get('password')
 
-    if crud.get_user_by_email(user_email):   # if user_email is in the User database
+    if crud.get_user_by_email(user_email):   
         return "There is already an account with that email. Please log in."
 
     else:
-        crud.create_user(user_email, user_password)  # adds user to the User database
+        crud.create_user(user_email, user_password)  
         return "Your account is created. You can log in"
 
     # return redirect('/')
@@ -89,12 +84,14 @@ def login():
     print(user_email)
     user_password = request.form.get('password')
 
-    if crud.get_user_by_email(user_email).password == user_password:
+    if crud.get_user_by_email(user_email) is None: 
+        return "Email not registered. Please create account."
+    elif crud.get_user_by_email(user_email).password == user_password:
         session['USER_EMAIL'] = user_email
-        print("\n\nCURRENT SESSION from '/login' ****= ", session['USER_EMAIL'], "\n\n")
+        # print("\n\nCURRENT SESSION from '/login' ****= ", session['USER_EMAIL'], "\n\n")
         return "You are logged in."
     else:
-        return "Incorrect email or password. Please try again"
+        return "Incorrect email or password. Please try again."
 
 
 @app.route('/logout')
@@ -112,13 +109,13 @@ def bookmark_coordinates():
     user_login = session.get("USER_EMAIL")
     user = crud.get_user_by_email(user_login)
 
-    print("\n\n\n user session*** = ", user_login)
+    # print("\n\n\n user session*** = ", user_login)
 
-    print("\n user = ", user.user_id, "\n\n")    
+    # print("\n user = ", user.user_id, "\n\n")    
 
     bookmark_list = crud.get_bookmark_coords(user.user_id)
 
-    print("\n\nbookmark list = ", bookmark_list, "\n\n")
+    # print("\n\nbookmark list = ", bookmark_list, "\n\n")
 
     return jsonify((bookmark_list))
 
@@ -140,9 +137,9 @@ def rating_coordinates():
 
 @app.route('/hikeList')
 def hike_list():
-    """Displays list of hikes within search criteria"""
+    """Displays list of hikes within search criteria. Users can search by zipcode, city or name"""
 
-    input = request.args.get('location-input')   # SEARCH BY ZIPCODE, CITY OR NAME 
+    input = request.args.get('location-input') 
     hikes = crud.get_all_hikes()
 
     return render_template('all_hikes.html', hikes=hikes, input=input)
@@ -153,7 +150,7 @@ def delete_bookmark():
     """Deletes corresponding bookmark"""
 
     hike_id = request.form.get('hike-id')  # receives hike-id from 'home.js' post 
-    print("\n\n\nbookmark: ",hike_id)
+    # print("\n\n\nbookmark: ",hike_id)
     user_login = session.get("USER_EMAIL")
     user = crud.get_user_by_email(user_login)
 
@@ -176,7 +173,6 @@ def delete_rating():
     return "Rating for {{hike_id}} has been deleted."
 
 
-
 @app.route('/hikeList/<hike_id>')
 def hike_details(hike_id):
     """Show details on a particular hike"""
@@ -185,8 +181,8 @@ def hike_details(hike_id):
     session['CURRENT_HIKE'] = hike_id
     user_login = session.get("USER_EMAIL")
 
-    print("\n\nuser_login**", user_login, "\n\n")
-    print("\n\nCURRENT_HIKE", session['CURRENT_HIKE'], "\n\n")
+    # print("\n\nuser_login**", user_login, "\n\n")
+    # print("\n\nCURRENT_HIKE", session['CURRENT_HIKE'], "\n\n")
     
     return render_template("hike_details.html", hike=hike, user_login=user_login)
 

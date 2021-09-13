@@ -20,7 +20,7 @@
 
   </div>
 
-  <div class="homepage-loggedin">
+<div class="homepage-loggedin">
 
 
   <div class="row">
@@ -28,7 +28,7 @@
     <div class="col-6"> 
 
 
-      <!-- {% if user_login == None %} -->
+      {% if user_login == None %}
 
         <form id="create-account">
           
@@ -49,10 +49,11 @@
 
         </form>
 
-      <!-- {% endif %} -->
+      {% endif %}
       
-
+    <div id = "login-jinja">
       {% if user_login %}
+    </div>
 
         <div id="user-bookmarks" >
 
@@ -74,8 +75,10 @@
           </ul>
         
         </div>
-
+    <div id = "login-jinja">
       {% endif %}
+    </div>
+
 
     </div>
 
@@ -107,7 +110,7 @@
 
 
 
-      <!-- {% if user_login == None %} -->
+      {% if user_login == None %}
 
         <form id="user-login">
 
@@ -132,8 +135,7 @@
 
         </form>
 
-      <!-- {% endif %} -->
-
+      {% endif %}
       {% if user_login %}
 
         <div id="user-ratings">
@@ -155,22 +157,26 @@
                   Comments: {{ rating.comments }}
               </li>
             {% endfor %}
+
           </ul>
 
         </div>
+        <div id = "login-jinja">
+
       {% endif %}
+    </div>
+
 
     </div>
 
     <div class="col-6">
-
-      <!-- {% if user_login %} -->
+  
         <!-- For google map  -->
         <h3>Google Maps Location</h3>
           
         <!--The div element for the map -->
         <div id="map"></div>
-      <!-- {% endif %} -->
+  
 
     </div>
 

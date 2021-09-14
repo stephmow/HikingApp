@@ -109,10 +109,13 @@ $('#user-login').on('submit', (evt) => {
     if (res == "You are logged in.") {
       $("#user-login").toggle(2000);   
       $("#create-account").toggle(2000);   
-      $('#userName').text(formInputs['email']);
+      // $('#userName').text(formInputs['email']);  
 
       // $("#flash-message").html(res);
       flash(res);
+
+    
+
 
 
 
@@ -128,9 +131,14 @@ $('#user-login').on('submit', (evt) => {
         $(".homepage-loggedin").fadeOut(500, function() {
           $(this).html(response);
           $(this).fadeIn(500);
+          initAutocomplete(); 
+          $.get('/search', (res) => {
+            autocomplete(document.getElementById("hike-search-bar"), res);
+          });
+
+
         });
       
-        initAutocomplete();    // where should i put this...this. 
 
 
       });

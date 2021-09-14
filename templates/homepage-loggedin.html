@@ -2,44 +2,47 @@
 
   <div class="col-4"> 
 
-      <div id="user-bookmarks" >
+    <div id="user-bookmarks" >
 
-        <h1>My Saved Hikes</h1>
-        <ul class = "list-group">
-          {% for bookmark in bookmarks %}
-            <li class = "list-group-item" id = "li-{{bookmark.hike.hike_id}}">  
-              <a href="/hikeList/{{bookmark.hike.hike_id}}" class="bookmarks" name = "saved-bookmark">          
-              {{ bookmark.hike.name }}
-              </a>
+      <h5>My Saved Hikes</h5>
+      <ul class = "list-group">
+        {% for bookmark in bookmarks %}
+          <li class = "list-group-item" id = "li-{{bookmark.hike.hike_id}}">  
+            <a href="/hikeList/{{bookmark.hike.hike_id}}" class="bookmarks" name = "saved-bookmark">          
+            {{ bookmark.hike.name }}
+            </a>
 
-                <button 
-                class ="trash-bookmark" 
-                value = "{{bookmark.hike.hike_id}}" 
-                style = "font-size:50px"></button>
+              <button 
+              class ="trash-bookmark" 
+              value = "{{bookmark.hike.hike_id}}" 
+              style = "font-size:50px"></button>
 
-            </li> 
-          {% endfor %}
-        </ul>
-      
-      </div>
+          </li> 
+        {% endfor %}
+      </ul>
+    
+    </div>
 
 
   </div>
+
 
   <div class="col-8">
     <div class="ui-widget">
       <form id = "hike-search" action="/hikeList" autocomplete="off">
 
             <h5> Search for a hike</h5>
-            <input 
+            <p><input 
+              class = "form-control"
               label for = "hike-search-bar"
               id="hike-search-bar"
               class="ui-autocomplete-input"
               name="location-input" 
               placeholder="City, Zipcode or Name" 
               required="required"
-              autocomplete="off">
-            <p><input type="submit" value="Search"></p>
+              autocomplete="off"></p>
+
+              <p><button class = "btn btn-secondary" type="submit" value="Submit">Search</button></p>
 
       </form>
     </div>
@@ -57,39 +60,46 @@
 
 
 
-      <div id="user-ratings">
 
-        <h1>My Completed Hikes</h1>
-        <ul class="list-group">
-          {% for rating in ratings %}
-            <li class="list-group-item" id = "li-{{rating.hike.hike_id}}">
-                <a href="/hikeList/{{rating.hike.hike_id}}" class="ratings" name = "saved-rating">
-                {{ rating.hike.name }}
-                </a>
+    <div id="user-ratings">
 
-                  <button 
-                  class ="trash-rating" 
-                  value = "{{rating.hike.hike_id}}" 
-                  style = "font-size:50px"></button>
-                
-                Rating: {{ rating.rating }}<br>
-                Comments: {{ rating.comments }}
-            </li>
-          {% endfor %}
-        </ul>
+      <h5>My Completed Hikes</h5>
+      <ul class="list-group">
+        {% for rating in ratings %}
+          <li class="list-group-item" id = "li-{{rating.hike.hike_id}}">
+              <a href="/hikeList/{{rating.hike.hike_id}}" class="ratings" name = "saved-rating">
+              {{ rating.hike.name }}
+              </a>
 
-      </div>
+                <button 
+                class ="trash-rating" 
+                value = "{{rating.hike.hike_id}}" 
+                style = "font-size:50px"></button>
+              <br>
+              My Rating: {{ rating.rating }}<br>
+              My Comments: {{ rating.comments }}
+          </li>
+        {% endfor %}
+
+      </ul>
+
+    </div>
 
   </div>
+
 
   <div class="col-8">
 
-      <!-- For google map  -->
-      <h3>Google Maps Location</h3>
-        
-      <!--The div element for the map -->
-      <div id="map"></div>
+    <div class = "row pt-3">
+      <div class = "col-12">
+        <ul class = "list-group">
+          <h3>Google Maps Location</h3>
+          <li class = "p-3 list-group-item bg-transparent border border-light rounded">
+            <div id="map"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
 
   </div>
-
-</div>

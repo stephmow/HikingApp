@@ -13,7 +13,7 @@
       <h1 id="myHeader">UNPLUG<span id="userName"></span></h1>
   </div>
   <div class="row justify-content-center pb-3">
-        <h5 id="myHeader">recharge in nature</h5>
+        <h5 id="myHeader">& recharge</h5>
   </div>
 
 <div class="homepage-loggedin">
@@ -41,35 +41,50 @@
                     name="password" 
                     required="required" 
                     placeholder="Password"></p>
-          <p><button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button></p>
+          <p><button class = "btn btn-secondary" type="submit" value="Submit">Submit</button></p>
 
         </form>
 
       {% endif %}
       
       {% if user_login %}
+     
 
-        <div id="user-bookmarks" >
 
-          <h5>My Saved Hikes</h5>
-          <ul class = "list-group">
-            {% for bookmark in bookmarks %}
-              <li class = "list-group-item" id = "li-{{bookmark.hike.hike_id}}">  
-                <a href="/hikeList/{{bookmark.hike.hike_id}}" class="bookmarks" name = "saved-bookmark">          
-                {{ bookmark.hike.name }}
-                </a>
+      <div id="user-bookmarks">
 
+        <h5>My Saved Hikes</h5>
+
+        <div class="list-group">
+
+          {% for bookmark in bookmarks %}
+            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" 
+              id = "li-{{bookmark.hike.hike_id}}" 
+              name = "saved-bookmark">
+
+              <div class="d-flex w-100 justify-content-between">
+
+                
+                <a href = "/hikeList/{{bookmark.hike.hike_id}}" 
+                  class="mb-1">{{ bookmark.hike.name }}</a>
+                <small>
                   <button 
-                  class ="trash-bookmark" 
-                  value = "{{bookmark.hike.hike_id}}" 
-                  style = "font-size:50px"></button>
+                    class ="trash-bookmark button" 
+                    value = "{{bookmark.hike.hike_id}}" 
+                    style = "font-size:50px">
+                    delete_outline
 
-              </li> 
-            {% endfor %}
-          </ul>
-        
+                  </button>
+                      
+                </small>
+              </div>
+            </ul>
+          {% endfor %}
         </div>
+      </div>
+
       {% endif %}
+
 
 
     </div>
@@ -89,9 +104,10 @@
                 required="required"
                 autocomplete="off"></p>
 
-                <p><button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Search</button></p>
+                <p><button class = "btn btn-secondary" type="submit" value="Submit">Search</button></p>
 
         </form>
+        
       </div>
     
     </div>
@@ -122,7 +138,7 @@
                     name="password-login" 
                     required="required"
                     placeholder="Password"></p>
-           c
+          <p><button class = "btn btn-secondary" type="submit" value="Submit">Submit</button></p> 
 
 
         </form>
@@ -133,31 +149,46 @@
         <div id="user-ratings">
 
           <h5>My Completed Hikes</h5>
-          <ul class="list-group">
+
+          <div class="list-group">
+
             {% for rating in ratings %}
-              <li class="list-group-item" id = "li-{{rating.hike.hike_id}}">
-                  <a href="/hikeList/{{rating.hike.hike_id}}" class="ratings" name = "saved-rating">
-                  {{ rating.hike.name }}
-                  </a>
+              <a href = "/hikeList/{{rating.hike.hike_id}}" 
+                class="list-group-item list-group-item-action flex-column align-items-start active" 
+                id = "li-{{rating.hike.hike_id}}" 
+                name = "saved-rating">
 
+                <div class="d-flex w-100 justify-content-between">
+                  <p class="mb-1">{{ rating.hike.name }}</p>
+                  <small>
                     <button 
-                    class ="trash-rating" 
-                    value = "{{rating.hike.hike_id}}" 
-                    style = "font-size:50px"></button>
-                  
-                  Rating: {{ rating.rating }}<br>
-                  Comments: {{ rating.comments }}
-              </li>
+                      class ="trash-rating" 
+                      value = "{{rating.hike.hike_id}}" 
+                      style = "font-size:50px"></button>
+                  </small>
+                </div>
+                <small class="mb-1">
+                  My Rating: {{ rating.rating }}<br>
+                  My Comments: {{ rating.comments }}
+                </small>
+              </a>
             {% endfor %}
+          </div>
+        </div>
 
-          </ul>
+
+
+
+
+
+
+
 
         </div>
 
       {% endif %}
 
 
-    </div>
 
     <div class="col-8">
       {% if user_login %}
@@ -173,14 +204,14 @@
         </div>
       </div>
 
-{% endif %}
+      {% endif %}
 
     </div>
 
   </div>
   
 </div>
-
+</div>
 
 
 </div>

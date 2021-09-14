@@ -144,9 +144,9 @@ body {
 /* end star rating  */
 
 .navbar a{
-  font-family: 'Playfair Display', serif;
+  font-family: 'Roboto', serif;
   font-size: 16px;
-  color: #bdb8b5;
+  color:black;
 }
 
 
@@ -157,7 +157,8 @@ body {
 h1{
   color: white;
   font-family: 'Playfair Display', serif;
-  font-size: 50px;
+  font-size: 60px;
+  font-weight: 600;
 
 }
 
@@ -186,41 +187,41 @@ h5{
 }
 
 
-/* for autocomplete bar  */
-* { box-sizing: border-box; }
+/* SEARCH AUTOCOMPLETE BAR  */
+* { box-sizing:border-box; }
 body {
   font: 16px;
-  font-family: 'Roboto', sans-serif;}
-
-.autocomplete {
-  /*the container must be positioned relative:*/
-  position: relative;
-  display: inline-block;
+  font-family: 'Roboto', sans-serif;
 }
+
 input {
   border: 1px solid transparent;
-  background-color: #f1f1f1;
   padding: 10px;
   font-size: 16px;
 }
 input[type=text] {
-  background-color: #f1f1f1;
   width: 100%;
 }
 input[type=submit] {
-  background-color: DodgerBlue;
   color: #fff;
 }
 .autocomplete-items {
-  position: absolute;
+  position:absolute;
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
   z-index: 99;
   /*position the autocomplete items to be the same width as the container:*/
-  top: 100%;
+  /* top: 100%;
   left: 0;
-  right: 0;
+  right: 0; */
+
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  /* add padding to account for vertical scrollbar */
+  padding-right: 20px;
 }
 .autocomplete-items div {
   padding: 10px;
@@ -237,3 +238,25 @@ input[type=submit] {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: -internal-light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;
+  color: -internal-light-dark(black, white) !important;
+}
+
+.trash-bookmark {
+  font-family: Material Icons;
+  font-size: 18px !important;
+}
+
+.material-icons{
+  font-size: 48px;
+}
+
+.button {
+  background: none;
+  border: none;
+  color: black;
+  }

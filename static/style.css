@@ -6,6 +6,11 @@
     /* The width is the width of the web page */
   }
 
+
+.container-fluid {
+  background: url("/static/hike_4.jpg") no-repeat center center;
+  background-size: cover;
+}
   
 /* Optional: Makes the sample page fill the window. */
 html,
@@ -13,17 +18,18 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 
 #description {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
-  font-weight: 300;
+  /* font-weight: 300; */
 }
 
-#infowindow-content .title {
+/* #infowindow-content .title {
   font-weight: bold;
-}
+} */
 
 #infowindow-content {
   display: none;
@@ -41,7 +47,7 @@ body {
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   background-color: #fff;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
 }
 
 #pac-container {
@@ -55,14 +61,14 @@ body {
 }
 
 .pac-controls label {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   font-weight: 300;
 }
 
 #pac-input {
   background-color: #fff;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 15px;
   font-weight: 300;
   margin-left: 12px;
@@ -86,19 +92,6 @@ body {
 #target {
   width: 345px;
 }
-
-
-
-/* 
-#user-bookmarks {
-  display:none;
-}
-
-
-#user-ratings {
-  display:none;
-} */
-
 
 
 /* For star rating  */
@@ -146,7 +139,7 @@ body {
 /* end star rating  */
 
 .navbar a{
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
+  font-family: 'Playfair Display', serif;
   font-size: 16px;
   color: black;
 }
@@ -161,6 +154,7 @@ h1{
 
 h3{
   color:white;
+  font-family: 'Playfair Display', serif;
 }
 
 h5{
@@ -185,8 +179,9 @@ h5{
 /* for autocomplete bar  */
 * { box-sizing: border-box; }
 body {
-  font: 16px Arial;
-}
+  font: 16px;
+  font-family: 'Roboto', sans-serif;}
+
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;

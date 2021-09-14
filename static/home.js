@@ -3,7 +3,6 @@
 
 // HIKE SEARCH - AUTOCOMPLETE 
 $.get('/search', (res) => {
-  // console.log('search test')
   // console.log(res)
 
   autocomplete(document.getElementById("hike-search-bar"), res);
@@ -49,7 +48,7 @@ function initAutocomplete() {
             position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
             map: map,
             icon: {
-              url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+              url: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
             },
           });
 
@@ -66,8 +65,6 @@ function initAutocomplete() {
     
         }
 
-    
-
     });
 
     $.get('/ratings/map.json', (data) => {
@@ -82,6 +79,10 @@ function initAutocomplete() {
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
             map: map,
+            icon: {
+              url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            },
+
           });
         };
     });
@@ -95,6 +96,7 @@ function initAutocomplete() {
 $('#user-login').on('submit', (evt) => {
   evt.preventDefault(); 
   // console.log('test from user-login script');
+
   
   const formInputs = {
     'email': $('#login-email').val(),

@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Find a Hike{% endblock %}
+{% block title %}{% endblock %}
 
 {% block head %}{% endblock %} 
 
 
 {% block body %}
-<body background="/static/hike_2.jpg">
 
 <div class="container-fluid">
 
   <div class="row">
 
     <div class="col-10">
-
+      <br>
       <h3 id="myHeader">Welcome to HikeFinder <span id="userName"></span></h3>
   
     </div>
@@ -25,7 +24,7 @@
 
   <div class="row">
 
-    <div class="col-6"> 
+    <div class="col-4"> 
 
 
       {% if user_login == None %}
@@ -51,9 +50,7 @@
 
       {% endif %}
       
-    <div id = "login-jinja">
       {% if user_login %}
-    </div>
 
         <div id="user-bookmarks" >
 
@@ -75,14 +72,12 @@
           </ul>
         
         </div>
-    <div id = "login-jinja">
       {% endif %}
-    </div>
 
 
     </div>
 
-    <div class="col-6">
+    <div class="col-8">
       <div class="ui-widget">
         <form id = "hike-search" action="/hikeList" autocomplete="off">
 
@@ -106,7 +101,7 @@
 
   <div class="row">
 
-    <div class="col-6">
+    <div class="col-4">
 
 
 
@@ -161,22 +156,20 @@
           </ul>
 
         </div>
-        <div id = "login-jinja">
 
       {% endif %}
-    </div>
 
 
     </div>
 
-    <div class="col-6">
-  
+    <div class="col-8">
+
         <!-- For google map  -->
         <h3>Google Maps Location</h3>
           
         <!--The div element for the map -->
         <div id="map"></div>
-  
+
 
     </div>
 

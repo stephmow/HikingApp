@@ -20,13 +20,16 @@ function initAutocomplete() {
         zoom: 8,
         center: latlng,
         mapTypeId: "roadmap"
+        
     });
 
     // The marker, positioned at given coordinates
     const marker = new google.maps.Marker({
         position: latlng,
         map: map,
-        // styles: myHikeStyle
+        icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+        }
     });
 
     });

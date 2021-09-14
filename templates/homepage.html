@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}Welcome to HikeFinder{% endblock %}
 
 {% block head %}{% endblock %} 
 
@@ -9,14 +9,11 @@
 
 <div class="container-fluid">
 
-  <div class="row">
-
-    <div class="col-10">
-      <br>
-      <h3 id="myHeader">Welcome to HikeFinder <span id="userName"></span></h3>
-  
-    </div>
-
+  <div class="row justify-content-center pt-3">
+      <h1 id="myHeader">UNPLUG<span id="userName"></span></h1>
+  </div>
+  <div class="row justify-content-center pb-3">
+        <h5 id="myHeader">recharge in nature</h5>
   </div>
 
 <div class="homepage-loggedin">
@@ -44,7 +41,7 @@
                     name="password" 
                     required="required" 
                     placeholder="Password"></p>
-          <p><input type="submit" value="Submit" id = "test"></p>
+          <p><button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button></p>
 
         </form>
 
@@ -54,7 +51,7 @@
 
         <div id="user-bookmarks" >
 
-          <h1>My Saved Hikes</h1>
+          <h5>My Saved Hikes</h5>
           <ul class = "list-group">
             {% for bookmark in bookmarks %}
               <li class = "list-group-item" id = "li-{{bookmark.hike.hike_id}}">  
@@ -82,15 +79,17 @@
         <form id = "hike-search" action="/hikeList" autocomplete="off">
 
               <h5> Search for a hike</h5>
-              <input 
+              <p><input 
+                class = "form-control"
                 label for = "hike-search-bar"
                 id="hike-search-bar"
                 class="ui-autocomplete-input"
                 name="location-input" 
                 placeholder="City, Zipcode or Name" 
                 required="required"
-                autocomplete="off">
-              <p><input type="submit" value="Search"></p>
+                autocomplete="off"></p>
+
+                <p><button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Search</button></p>
 
         </form>
       </div>
@@ -123,9 +122,7 @@
                     name="password-login" 
                     required="required"
                     placeholder="Password"></p>
-          <p><input id="login-submit" 
-                    type="submit" 
-                    value="Submit"></p>
+           c
 
 
         </form>
@@ -135,7 +132,7 @@
 
         <div id="user-ratings">
 
-          <h1>My Completed Hikes</h1>
+          <h5>My Completed Hikes</h5>
           <ul class="list-group">
             {% for rating in ratings %}
               <li class="list-group-item" id = "li-{{rating.hike.hike_id}}">
@@ -163,20 +160,30 @@
     </div>
 
     <div class="col-8">
+      {% if user_login %}
 
-        <!-- For google map  -->
-        <h3>Google Maps Location</h3>
-          
-        <!--The div element for the map -->
-        <div id="map"></div>
+      <div class = "row pt-3">
+        <div class = "col-12">
+          <ul class = "list-group">
+            <h3>Google Maps Location</h3>
+            <li class = "p-3 list-group-item bg-transparent border border-light rounded">
+              <div id="map"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
+{% endif %}
 
     </div>
 
   </div>
   
 </div>
-  
+
+
+
+</div>
  
   <div>
     <!--  hidden input of current session email  -->

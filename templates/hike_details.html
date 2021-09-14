@@ -2,71 +2,116 @@
 
 {% block title %} Details - {{ hike.name }} {% endblock %}
 
+
+
 {% block body %}
-<h1>{{ hike.name }}</h1>
-<p>City: {{ hike.city }}</p>
-<p>Difficulty: {{ hike.difficulty }}</p>
-Route Type: {{ hike.route_type }}<p></p>
-Activities: {{ hike.activities }}<p></p>
-Average Rating: {{ hike.average_rating }}
+
+<div class="container-fluid">
+  <div class = "row pt-3">
+    <div class = "col-12">
+      <ul class = "list-group">
+        <h3>{{ hike.name }}</h3>
+      </ul>
+    </div>
+  </div>
+
+    <div class = "row p-3">
+      <div class = "col-6">
+          <li class = "list-group-item bg-light">
+            <p>City: {{ hike.city }}</p>
+            <p>Difficulty: {{ hike.difficulty }}</p>
+            Route Type: {{ hike.route_type }}<p></p>
+            Activities: {{ hike.activities }}<p></p>
+            Average Rating: {{ hike.average_rating }}
+          </li>
+        </ul>
+      </div>
+
+      <div class = "col-6">
+        
+        {% if user_login %}
+
+        <form id ="bookmarks">
+
+          <h2 id=bookmarks-header>Bookmark this hike</h2>
+
+            <input 
+              type="radio" 
+              name="bookmark" 
+              value="False">   
+            Save This Hike<br>
+
+            <input 
+              type="radio" 
+              name="bookmark" 
+              value="True"> 
+            Completed This Hike<br>
+
+            <button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button>
+
+        </form>
 
 
-{% if user_login %}
+        <form id = "ratings">
 
-  <form id ="bookmarks">
+          <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
 
-    <h2 id=bookmarks-header>Bookmark this hike</h2>
+          <h2 id="ratings-header">Rate this hike</h2>
 
-      <input 
-        type="radio" 
-        name="bookmark" 
-        value="False">   
-      Save This Hike<br>
+          <p>
 
-      <input 
-        type="radio" 
-        name="bookmark" 
-        value="True"> 
-      Completed This Hike<br>
+          <div class="rate">
+            <input type="radio" id="star5" name="rating" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rating" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rating" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rating" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rating" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </div>
+          <br>
+ </p>
+ <p>
 
-      <input type="submit">
+<input type="text" 
+                name="comments" placeholder = "Comments">
 
-  </form>
+
+ </p>
+          
+
+          <button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button>
+        
+         
+
+        </form>
+
+        {% endif %}
 
 
-  <form id = "ratings">
 
-    <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
-  
-    <h2 id="ratings-header">Rate this hike</h2>
 
-    <p>
 
-    <div class="rate">
-      <input type="radio" id="star5" name="rating" value="5" />
-      <label for="star5" title="text">5 stars</label>
-      <input type="radio" id="star4" name="rating" value="4" />
-      <label for="star4" title="text">4 stars</label>
-      <input type="radio" id="star3" name="rating" value="3" />
-      <label for="star3" title="text">3 stars</label>
-      <input type="radio" id="star2" name="rating" value="2" />
-      <label for="star2" title="text">2 stars</label>
-      <input type="radio" id="star1" name="rating" value="1" />
-      <label for="star1" title="text">1 star</label>
+
+
+
     </div>
 
-      Comments
 
-    <input type="text" 
-          name="comments">
 
-    <button type="submit">Submit</button>
-   
-    </p>
 
-  </form>
+    </div>
+  
 
-{% endif %}
+
+
+ 
+
+
+
 
 
     <!--  hidden input of hike_id  -->
@@ -79,12 +124,20 @@ Average Rating: {{ hike.average_rating }}
   </div>
 
 
-    <!-- For google map  -->
-    <h3>Google Maps Location</h3>
-      
-    <!--The div element for the map -->
-    <div id="map"></div>
+    <div class = "row pt-3">
+      <div class = "col-12">
+        <ul class = "list-group">
+          <h3>Google Maps Location</h3>
+          <li class = "mb-3 p-3 list-group-item bg-transparent border border-light rounded">
+            <div id="map"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
 
+
+
+</div>
 
 {% endblock %}
 

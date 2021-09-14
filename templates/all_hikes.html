@@ -1,27 +1,37 @@
 {% extends 'base.html' %}
-{% block title %}Hike List{% endblock %}
+{% block title %}Hikes near {{input}}{% endblock %}
 
 {% block body %}
-    
-<div class="row">
 
-  See below list of hikes near {{input}}.
+<div class="container-fluid">
+<div class="row pt-3">
+  <div class = "col-12">
+  <ul class = "list-group">
+
+  <h3>See below list of hikes near {{input}}.</h3>
+</ul>
+
+  </div>
 
 </div>
  
 
-<div class = "row">
-  <div class="col-4">
+<div class = "row p-3">
+  <div class="col-12">
 
     {% for hike in hikes %}
       {% set zip = hike.zipcode | string() %} 
       {% if input == hike.city or input == zip or input == hike.name %}
 
-      <ul class = "list-group">
-        <li class="list-group-item">
+      <ul class = "p-3 list-group bg-transparent border border-light rounded">
+        <li class="p-3 list-group-item bg-gradient-light">
           <a href="/hikeList/{{ hike.hike_id }}">
-            {{ hike.name }}
-          </a>
+            {{ hike.name }} </a>
+            | 
+            Difficulty: {{ hike.difficulty }}
+            |
+            Type: {{ hike.route_type }}
+        
         </li>
       </ul>
       {% endif %}
@@ -29,6 +39,7 @@
 
   </div>
 
+</div>
 </div>
 
 

@@ -1,6 +1,5 @@
  "use strict";
 
-
 // HIKE SEARCH - AUTOCOMPLETE 
 $.get('/search', (res) => {
   // console.log(res)
@@ -8,7 +7,6 @@ $.get('/search', (res) => {
   autocomplete(document.getElementById("hike-search-bar"), res);
   // autocomplete(($('#hike-search-bar')), res); 
 });
-
 
 
 // GOOGLE MAP - APPEARS WHEN USER IS LOGGED IN 
@@ -32,17 +30,14 @@ function initAutocomplete() {
       // for item in bookmark_list 
       // add lat/lng to latlng dict 
 
-        console.log("given coordinates are: ", data);
+        // console.log("given coordinates are: ", data);
 
         // markers for bookmarked (saved) hikes
         let marker, i;
         
         for (i = 0; i < data.length; i++) {  
 
-          console.log("BOOKMARKED coordinates are: ", data[i]['lat'], data[i]['lng']);
-
-          console.log("hike_id is: ",data[i]['hike_id']); 
-
+          // console.log("BOOKMARKED coordinates are: ", data[i]['lat'], data[i]['lng']); 
 
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
@@ -61,8 +56,6 @@ function initAutocomplete() {
               infowindow.open(map, marker);
             }
           })(marker, i));
-
-    
         }
 
     });
@@ -74,8 +67,7 @@ function initAutocomplete() {
         
         for (i = 0; i < data.length; i++) {  
 
-          console.log("RATING coordinates are: ", data[i]['lat'], data[i]['lng']);
-
+          // console.log("RATING coordinates are: ", data[i]['lat'], data[i]['lng']);
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(data[i]['lat'], data[i]['lng']),
             map: map,
@@ -88,7 +80,7 @@ function initAutocomplete() {
     });
 
 
-  };
+};
 
 
 
@@ -114,38 +106,20 @@ $('#user-login').on('submit', (evt) => {
       // $("#flash-message").html(res);
       flash(res);
 
-    
-
-
-
-
-
-
-      // Add logout button to nav bar in 'base.html' 
-      // $('#myNavbar-login').html('<li><a href="/logout">Logout</a></li>');
-
-    
-
       $.get('/loggedin', (response) => {
 
         $(".homepage-loggedin").fadeOut(500, function() {
           $(this).html(response);
-          $(this).fadeIn(500);
+          $(this).fadeIn(2000);
           initAutocomplete(); 
           $.get('/search', (res) => {
             autocomplete(document.getElementById("hike-search-bar"), res);
           });
-
-
         });
-      
-
-
       });
     }
 
     else {
-      // $("#flash-message").html(res);
       flash(res);
     }
 
@@ -172,30 +146,17 @@ $('#create-account').on('submit', (evt) => {
   });
 });
 
-
-// // Test getting all bookmark coordinates 
-// $.get('/bookmarks/map.json', (res) => {
-//   console.log("response is ", res)  // response is a list of dictionaries
-//   $.each(res,function(index,value){ 
-//     console.log(index, value);    
-//     // index: 0, value: dictionary of lat, long and hike_id
-//   });
-// });
-
 // Delete Bookmark 
 $(".trash-bookmark").on('click', (evt) => {
 
-  console.log('delete bookmark test');  
-  console.log("evt is: ", evt);
-  console.log("evt.target.value is: ", evt.target.value);
-
+  // console.log("evt.target.value is: ", evt.target.value); 
 
   const formInputs = {
     'hike-id' : evt.target.value
   }
 
   $.post("/delete_bookmark", formInputs, (res) => {
-    console.log(res);
+    // console.log(res);
 
     // delete specific list item
     $(`#li-${formInputs['hike-id']}`).remove()
@@ -206,9 +167,7 @@ $(".trash-bookmark").on('click', (evt) => {
 // Delete Rating 
 $(".trash-rating").on('click', (evt) => {
 
-  console.log('delete rating test');  
-  console.log("evt is: ", evt);
-  console.log("evt.target.value is: ", evt.target.value);
+  // console.log("evt.target.value is: ", evt.target.value); 
 
 
   const formInputs = {
@@ -216,7 +175,7 @@ $(".trash-rating").on('click', (evt) => {
   }
 
   $.post("/delete_rating", formInputs, (res) => {
-    console.log(res);
+    // console.log(res); 
 
     // delete specific list item
     $(`#li-${formInputs['hike-id']}`).remove()

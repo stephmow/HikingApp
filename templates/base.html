@@ -5,9 +5,7 @@
     <meta name="viewport" 
           content="width=device-width, initial-scale=1">
 
-        <!-- Google Map with Search Bar  -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
-   async></script>
+    
 
     <!-- Google Icons  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -27,19 +25,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;900&family=Roboto:wght@100;400&display=swap" rel="stylesheet">
 
-
-<!-- 
-   <link rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
     <!-- Script tags from getbootstrap.com -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"          
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"  
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
- 
-
+<!-- Google Map with Search Bar  -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAL_bzgASPsBIykii9DoVNQAn3PychoOvs&callback=initAutocomplete&libraries=places&v=weekly&channel=2"
+async></script>
     <link href="/static/style.css" 
     rel="stylesheet"> 
     
@@ -63,9 +56,16 @@
           <li><div id = "flash-message"><span id="flash-msg"></span></div></li>
         </div>
 
+
         <div class="nav navbar-nav navbar-right" id="myNavbar-login">
+
+        {% if user_login  %}
           <li><a href="/logout">Logout</a></li> 
+        {% endif %}
+
+
         </div>
+      
 
     </nav>
 

@@ -141,8 +141,9 @@ def hike_list():
 
     input = request.args.get('location-input') 
     hikes = crud.get_all_hikes()
+    user_login = session.get("USER_EMAIL")
 
-    return render_template('all_hikes.html', hikes=hikes, input=input)
+    return render_template('all_hikes.html', hikes=hikes, input=input, user_login = user_login)
 
 
 @app.route('/delete_bookmark', methods = ["POST"])

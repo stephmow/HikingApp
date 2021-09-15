@@ -7,14 +7,38 @@
 
 {% block body %}
 
+<!-- {% if user_login == None %}
+
+<section id="home" class="d-flex align-items-center position-relative vh-100 cover hero" style="background-color: #2596be">
+
+  <div class="container-fluid-max">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <h1 class="text-white">Find a Hike!</h1>
+        <div class="mt-3">
+          <a class="btn bg-red text-white mr-2" href="" role="button">unplug and find</a>
+          <a class="btn bg-red text-white" href="" role="button">...</a>
+        </div> 
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endif %} -->
+
+
+
+
 <div class="container-fluid">
 
   <div class="row justify-content-center pt-3">
-      <h1 id="myHeader">UNPLUG<span id="userName"></span></h1>
+      <h1 id="myHeader">HIKE<span id="userName"></span></h1>
+      <h5 id="myHeader">Finder</h5>
+
   </div>
-  <div class="row justify-content-center pb-3">
+  <!-- <div class="row justify-content-center pb-3">
         <h5 id="myHeader">& recharge</h5>
-  </div>
+  </div> -->
 
 <div class="homepage-loggedin">
 
@@ -55,10 +79,19 @@
 
         <h5>My Saved Hikes</h5>
 
-        <div class="list-group">
+        <div class="list-group-homepage">
+
+          {% if bookmarks == [] %} 
+                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" style = "background-color: lightgray">
+
+                <div class="d-flex w-100 justify-content-between">
+                  You have not saved any hikes.
+                </div>
+              </ul>
+          {% endif %} 
 
           {% for bookmark in bookmarks %}
-            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning" 
+            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
               id = "li-{{bookmark.hike.hike_id}}" 
               name = "saved-bookmark">
 
@@ -73,7 +106,6 @@
                     value = "{{bookmark.hike.hike_id}}" 
                     style = "font-size:50px">
                     delete_outline
-
                   </button>
                       
                 </small>
@@ -113,12 +145,24 @@
     </div>
 
   </div>
+    {% if user_login %}
+
+  <div class = "row">
+
+    <div class = "col-4">
+      <h5>My Completed Hikes</h5>
+    </div>
+
+    <div class = "col-8">
+      <h5>Google Maps Location</h5>
+    </div>
+
+  </div>
+  {% endif %}
 
   <div class="row">
 
     <div class="col-4">
-
-
 
       {% if user_login == None %}
 
@@ -148,30 +192,40 @@
 
         <div id="user-ratings">
 
-          <h5>My Completed Hikes</h5>
 
-          <div class="list-group">
+          <div class="list-group-homepage">
+
+
+            {% if ratings == [] %} 
+              <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" style = "background-color: lightgray">
+                <div class="d-flex w-100 justify-content-between">
+                 You have not completed any hikes.
+                </div>
+              </ul>
+            {% endif %} 
 
             {% for rating in ratings %}
-              <a href = "/hikeList/{{rating.hike.hike_id}}" 
-                class="list-group-item list-group-item-action flex-column align-items-start active" 
+
+                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
                 id = "li-{{rating.hike.hike_id}}" 
                 name = "saved-rating">
 
                 <div class="d-flex w-100 justify-content-between">
-                  <p class="mb-1">{{ rating.hike.name }}</p>
+                  <a href = "/hikeList/{{rating.hike.hike_id}}"  class="mb-1">{{ rating.hike.name }}</a>
                   <small>
-                    <button 
-                      class ="trash-rating" 
+                      <button 
+                      class ="trash-rating button" 
                       value = "{{rating.hike.hike_id}}" 
-                      style = "font-size:50px"></button>
+                      style = "font-size:50px">
+                      delete_outline
+                    </button>
                   </small>
                 </div>
                 <small class="mb-1">
                   My Rating: {{ rating.rating }}<br>
                   My Comments: {{ rating.comments }}
                 </small>
-              </a>
+              </ul>
             {% endfor %}
           </div>
         </div>
@@ -191,18 +245,22 @@
 
 
     <div class="col-8">
+      <div class="list-group-homepage">  
+
       {% if user_login %}
 
-      <div class = "row pt-3">
-        <div class = "col-12">
-          <ul class = "list-group">
-            <h3>Google Maps Location</h3>
-            <li class = "p-3 list-group-item bg-transparent border border-light rounded">
-              <div id="map"></div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      
+
+      <!-- <div class = "col-8 ">     -->
+          <!-- <ul class = "list-group-item list-group-solid-item list-group-map">   -->
+    
+            <!-- <li class = "list-group-solid-item list-group-map">    -->
+              <div id="map"></div>  
+            <!-- </li>     -->
+          <!-- </ul>    -->
+        <!-- </div>     -->
+
+
 
       {% endif %}
 
@@ -216,14 +274,12 @@
 
 </div>
  
-  <div>
     <!--  hidden input of current session email  -->
     <input 
     id = "hidden-user-email" 
     type= "hidden" 
     name="user-email" 
     value= {{ user_login }}>
-  </div>
 
 
 {% endblock %}

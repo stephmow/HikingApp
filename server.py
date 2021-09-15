@@ -269,9 +269,10 @@ def create_rating(hike_id):
 
         crud.create_rating(user = user, hike = hike, rating = user_rating, comments = comments)
 
-        crud.delete_bookmark(user = user, hike_id = hike_id)
+        for bookmark in bookmarks:
+            if int(bookmark['hike_id']) == int(session['CURRENT_HIKE']):
+                crud.delete_bookmark(user = user, hike_id = hike_id)
 
-        # print('\n\n\n******HIKE rated******')
         return('Rating added for this hike.')
 
 

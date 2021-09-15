@@ -3,7 +3,7 @@
 
 {% block body %}
 
-<div class="container-fluid">
+<div class="container-fluid special-body">
 <div class="row pt-3">
   <div class = "col-12">
   <ul class = "list-group">
@@ -23,7 +23,7 @@
       {% set zip = hike.zipcode | string() %} 
       {% if input == hike.city or input == zip or input == hike.name %}
 
-      <ul class = "p-3 list-group bg-transparent border border-light rounded">
+      <!-- <ul class = "p-3 bg-transparent border border-light rounded"> -->
         <li class="p-3 list-group-item bg-gradient-light">
           <a href="/hikeList/{{ hike.hike_id }}">
             {{ hike.name }} </a>
@@ -33,7 +33,7 @@
             Type: {{ hike.route_type }}
         
         </li>
-      </ul>
+      <!-- </ul> -->
       {% endif %}
     {% endfor %}
 

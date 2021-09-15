@@ -8,32 +8,46 @@
 
 <div class="container-fluid">
   <div class = "row pt-3">
-    <div class = "col-12">
+    <div class = "col-4">
       <ul class = "list-group">
         <h3>{{ hike.name }}</h3>
       </ul>
     </div>
+
+    <div class = "col-8" id = "boomarks-header-container">
+      
+        <h5 id = "bookmarks-header"></h5> 
+    </div>
   </div>
 
     <div class = "row p-3">
-      <div class = "col-6">
-          <li class = "list-group-item bg-light">
-            <p>City: {{ hike.city }}</p>
-            <p>Difficulty: {{ hike.difficulty }}</p>
-            Route Type: {{ hike.route_type }}<p></p>
-            Activities: {{ hike.activities }}<p></p>
-            Average Rating: {{ hike.average_rating }}
+      <div class = "col-4">
+          <li class = "list-group-item list-group-item-set bg-light">
+            <h6>Hike Information: </h6>
+            City: {{ hike.city }}<br>
+            Route Type: {{ hike.route_type }}<br>
+            Activities: {{ hike.activities }}<br>
+
+              <!-- list out activities  -->
+
+            Difficulty: {{ hike.difficulty }}<br>
+            Average Rating: {{ hike.average_rating }}<br>
           </li>
         </ul>
       </div>
 
-      <div class = "col-6">
+      <div class = "col-8">
+                {% if user_login %}
+
+        <li class = "list-group-item list-group-item-set bg-light">
         
-        {% if user_login %}
 
         <form id ="bookmarks">
 
-          <h2 id=bookmarks-header>Bookmark this hike</h2>
+          <h6 id=bookmarks>Bookmark this hike:</h6>
+       
+
+
 
             <input 
               type="radio" 
@@ -95,7 +109,7 @@
 
 
 
-
+</li>
 
 
     </div>
@@ -126,9 +140,9 @@
 
     <div class = "row pt-3">
       <div class = "col-12">
-        <ul class = "list-group">
+        <ul class = "list-group-map">
           <h3>Google Maps Location</h3>
-          <li class = "mb-3 p-3 list-group-item bg-transparent border border-light rounded">
+          <li class = "mb-3 p-3 list-group bg-transparent">
             <div id="map"></div>
           </li>
         </ul>

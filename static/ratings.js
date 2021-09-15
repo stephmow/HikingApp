@@ -69,7 +69,7 @@ $('#ratings').on('submit', (evt) => {
   console.log(url)
 
   $.post(url, {is_completed: "True", rating: rating, comments: comments}, (res) => {
-    $('#ratings-header').html(res);
+    $('#bookmarks-header').html(res);
     console.log(res);
   });
 });

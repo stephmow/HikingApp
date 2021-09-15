@@ -1,105 +1,149 @@
-<div class="row">
 
-  <div class="col-4"> 
+  <div class="row">
 
-    <div id="user-bookmarks" >
+    <div class="col-4"> 
 
-      <h5>My Saved Hikes</h5>
-      <ul class = "list-group">
-        {% for bookmark in bookmarks %}
-          <li class = "list-group-item" id = "li-{{bookmark.hike.hike_id}}">  
-            <a href="/hikeList/{{bookmark.hike.hike_id}}" class="bookmarks" name = "saved-bookmark">          
-            {{ bookmark.hike.name }}
-            </a>
 
-              <button 
-              class ="trash-bookmark" 
-              value = "{{bookmark.hike.hike_id}}" 
-              style = "font-size:50px"></button>
 
-          </li> 
-        {% endfor %}
-      </ul>
+      <div id="user-bookmarks">
+
+        <h5>My Saved Hikes</h5>
+
+        <div class="list-group-homepage">
+
+          {% for bookmark in bookmarks %}
+            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+              id = "li-{{bookmark.hike.hike_id}}" 
+              name = "saved-bookmark">
+
+              <div class="d-flex w-100 justify-content-between">
+
+                
+                <a href = "/hikeList/{{bookmark.hike.hike_id}}" 
+                  class="mb-1">{{ bookmark.hike.name }}</a>
+                <small>
+                  <button 
+                    class ="trash-bookmark button" 
+                    value = "{{bookmark.hike.hike_id}}" 
+                    style = "font-size:50px">
+                    delete_outline
+                  </button>
+                      
+                </small>
+              </div>
+            </ul>
+          {% endfor %}
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="col-8">
+      <div class="ui-widget">
+        <form id = "hike-search" action="/hikeList" autocomplete="off">
+
+              <h5> Search for a hike</h5>
+              <p><input 
+                class = "form-control"
+                label for = "hike-search-bar"
+                id="hike-search-bar"
+                class="ui-autocomplete-input"
+                name="location-input" 
+                placeholder="City, Zipcode or Name" 
+                required="required"
+                autocomplete="off"></p>
+
+                <p><button class = "btn btn-secondary" type="submit" value="Submit">Search</button></p>
+
+        </form>
+        
+      </div>
     
     </div>
 
-
   </div>
 
+  <div class = "row">
 
-  <div class="col-8">
-    <div class="ui-widget">
-      <form id = "hike-search" action="/hikeList" autocomplete="off">
-
-            <h5> Search for a hike</h5>
-            <p><input 
-              class = "form-control"
-              label for = "hike-search-bar"
-              id="hike-search-bar"
-              class="ui-autocomplete-input"
-              name="location-input" 
-              placeholder="City, Zipcode or Name" 
-              required="required"
-              autocomplete="off"></p>
-
-              <p><button class = "btn btn-secondary" type="submit" value="Submit">Search</button></p>
-
-      </form>
-    </div>
-  
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="col-4">
-
-
-
-
-
-
-
-    <div id="user-ratings">
-
+    <div class = "col-4">
       <h5>My Completed Hikes</h5>
-      <ul class="list-group">
-        {% for rating in ratings %}
-          <li class="list-group-item" id = "li-{{rating.hike.hike_id}}">
-              <a href="/hikeList/{{rating.hike.hike_id}}" class="ratings" name = "saved-rating">
-              {{ rating.hike.name }}
-              </a>
+    </div>
 
-                <button 
-                class ="trash-rating" 
-                value = "{{rating.hike.hike_id}}" 
-                style = "font-size:50px"></button>
-              <br>
-              My Rating: {{ rating.rating }}<br>
-              My Comments: {{ rating.comments }}
-          </li>
-        {% endfor %}
-
-      </ul>
-
+    <div class = "col-8">
+      <h5>Google Maps Location</h5>
     </div>
 
   </div>
 
+  <div class="row">
 
-  <div class="col-8">
+    <div class="col-4">
 
-    <div class = "row pt-3">
-      <div class = "col-12">
-        <ul class = "list-group">
-          <h3>Google Maps Location</h3>
-          <li class = "p-3 list-group-item bg-transparent border border-light rounded">
-            <div id="map"></div>
-          </li>
-        </ul>
-      </div>
+
+
+        <div id="user-ratings">
+
+
+          <div class="list-group-homepage">
+
+            {% for rating in ratings %}
+
+                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+                id = "li-{{rating.hike.hike_id}}" 
+                name = "saved-rating">
+
+                <div class="d-flex w-100 justify-content-between">
+                  <a href = "/hikeList/{{rating.hike.hike_id}}"  class="mb-1">{{ rating.hike.name }}</a>
+                  <small>
+                      <button 
+                      class ="trash-rating button" 
+                      value = "{{rating.hike.hike_id}}" 
+                      style = "font-size:50px">
+                      delete_outline
+                    </button>
+                  </small>
+                </div>
+                <small class="mb-1">
+                  My Rating: {{ rating.rating }}<br>
+                  My Comments: {{ rating.comments }}
+                </small>
+              </ul>
+            {% endfor %}
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+    <div class="col-8">
+      <div class="list-group-homepage">
+
+
+        <!-- <div class = "col-12"> -->
+          <!-- <ul class = "list-group-item list-group-solid-item list-group-map"> -->
+    
+            <li class = "list-group-solid-item list-group-map">
+              <div id="map"></div>
+            </li>
+          <!-- </ul> -->
+        <!-- </div> -->
+
+
     </div>
 
-
   </div>
+  
+</div>

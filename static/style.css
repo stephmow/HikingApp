@@ -1,20 +1,61 @@
 /* Set the size of the div element that contains the map */
 #map {
-    height: 400px;
-    /* The height is 400 pixels */
+    height: 250px;
     width: 100%;
-    /* The width is the width of the web page */
   }
 
+#home {
+  background-color: white !important;
+}
 
 .container-fluid {
   background: url("/static/hike_4.jpg");
-
-  background-size: cover;
-
+  /* background-color:grey;   */
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-attachment: fixed;
   /* Preserve aspet ratio */
   min-width: 100%;
   min-height: 100%;
+} 
+
+.list-group-item:hover{
+  opacity: 0.8;
+}
+
+.list-group-solid-item:hover{
+  opacity: 100 !important;
+}
+
+.list-group-map{
+  height: 100%;
+  margin: 5px;
+}
+
+.list-group{
+  height: 100%;
+  /* margin-bottom: 5px; */
+  margin: 5px; 
+  overflow:scroll;
+  -webkit-overflow-scrolling:inherit;
+}
+
+.list-group-item-set {
+  max-height: 250px;
+  /* margin-bottom: 5px; */
+  margin: 5px; 
+}
+
+.list-group-homepage{
+  max-height:250px;
+  height: 250px;
+  /* margin-bottom: 5px; */
+  margin: 5px; 
+  overflow:scroll;
+}
+
+#bookmarks-header-container{
+  align-items:baseline; 
 }
   
 /* Optional: Makes the sample page fill the window. */
@@ -24,6 +65,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
+  overflow: hidden; 
+
+}
+
+.special-body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow: scroll !important; 
+
 }
 
 #description {
@@ -42,6 +94,7 @@ body {
 
 #map #infowindow-content {
   display: inline;
+
 }
 
 .pac-card {
@@ -146,16 +199,16 @@ body {
 .navbar a{
   font-family: 'Roboto', serif;
   font-size: 16px;
-  color:black;
-}
+  color: #759fc7;
 
+}
 
 .navbar-custom {
   height: 50px;
 }
 
 h1{
-  color: white;
+  color: #f8f9fa;
   font-family: 'Playfair Display', serif;
   font-size: 60px;
   font-weight: 600;
@@ -169,6 +222,17 @@ h3{
 
 h5{
   color: white;
+  font-family: 'Roboto', serif !important;
+  padding: 2px; 
+  
+}
+
+h6{
+  color: black;
+  font-family: 'Roboto', serif !important;
+  font-weight:bold;
+  padding: 2px; 
+  font-size: 24px;
   
 }
 
@@ -176,14 +240,14 @@ h5{
   color: whitesmoke;
 }
 
-.flash-msg {
+#flash-msg {
   /* float:right;
   width:1em;
   overflow:hidden;
   white-space:nowrap;
   cursor:pointer; 
   font-size:5px;  */
-  color: #045484;
+  color: #759fc7;
 }
 
 
@@ -211,17 +275,11 @@ input[type=submit] {
   border-bottom: none;
   border-top: none;
   z-index: 99;
-  /*position the autocomplete items to be the same width as the container:*/
-  /* top: 100%;
-  left: 0;
-  right: 0; */
-
   max-height: 200px;
   overflow-y: auto;
-  /* prevent horizontal scrollbar */
   overflow-x: hidden;
-  /* add padding to account for vertical scrollbar */
-  padding-right: 20px;
+  padding-right: 30px;
+  width: 100%; 
 }
 .autocomplete-items div {
   padding: 10px;
@@ -246,7 +304,7 @@ input:-internal-autofill-selected {
   color: -internal-light-dark(black, white) !important;
 }
 
-.trash-bookmark {
+.trash-bookmark, .trash-rating {
   font-family: Material Icons;
   font-size: 18px !important;
 }

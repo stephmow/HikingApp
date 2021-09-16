@@ -44,7 +44,7 @@ initAutocomplete();
 $('#ratings').hide(); 
 
 // Add bookmark for Saved Hike
-$('#bookmarks').on('submit', (evt) => {
+$('#bookmarks').on('click', (evt) => {
   evt.preventDefault();  
 
   // If 'Completed this hike'

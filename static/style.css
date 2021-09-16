@@ -19,8 +19,13 @@
   min-height: 100%;
 } 
 
-.list-group-item:hover{
-  opacity: 0.8;
+.list-group-item-saved:hover{
+  background-color: lightyellow;
+  opacity: 80%;
+}
+
+.list-group-item-comp:hover{
+  background-color:rgb(211, 230, 182, 0.8);
 }
 
 .list-group-solid-item:hover{
@@ -41,8 +46,14 @@
 }
 
 .list-group-item-set {
-  max-height: 250px;
+  height: 250px;
   /* margin-bottom: 5px; */
+  margin: 5px; 
+  overflow: scroll;
+}
+
+.list-group-item-card {
+  height: 150px !important;
   margin: 5px; 
 }
 
@@ -57,6 +68,13 @@
 #bookmarks-header-container{
   align-items:baseline; 
 }
+
+#bookmarks-header{
+  position: absolute;
+  bottom: 0;
+  margin-left: 20px;
+  margin-bottom: -10px;
+  }
   
 /* Optional: Makes the sample page fill the window. */
 html,
@@ -200,39 +218,46 @@ body {
   font-family: 'Roboto', serif;
   font-size: 16px;
   color: #759fc7;
+  font-weight: 400;
 
 }
 
 .navbar-custom {
-  height: 50px;
+  height: 60px;
 }
 
 h1{
   color: #f8f9fa;
   font-family: 'Playfair Display', serif;
-  font-size: 60px;
-  font-weight: 600;
+  font-size: 100px;
+  font-weight: 900;
 
 }
 
 h3{
   color:white;
   font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  position: relative;
+  text-align: left;
+  margin-left: 30px;
 }
 
 h5{
   color: white;
-  font-family: 'Roboto', serif !important;
-  padding: 2px; 
+  font-family: 'Playfair Display', serif;
+  padding: 10px;  
+  font-weight: 400;
+  font-size: 24px;
   
 }
 
 h6{
   color: black;
   font-family: 'Roboto', serif !important;
-  font-weight:bold;
+  font-weight:300px;
   padding: 2px; 
-  font-size: 24px;
+  font-size: 20px;
   
 }
 
@@ -255,7 +280,9 @@ h6{
 * { box-sizing:border-box; }
 body {
   font: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 300;
+
 }
 
 input {
@@ -318,3 +345,24 @@ input:-internal-autofill-selected {
   border: none;
   color: black;
   }
+
+
+  .item-wrapper {
+    float: left;
+    width: 33%;
+    height: 200px;
+    
+  }
+  
+  .item {
+    height:54px;
+    width:54px;
+    background-color:orange;
+    margin:4px;
+    display:block !important;
+  }
+
+  .brmedium {
+    display: block;
+    margin-bottom: 1em;
+}

@@ -16,23 +16,30 @@
 </div>
  
 
-<div class = "row p-3">
-  <div class="col-12">
+<div class = "row p-3 justify-content-center">
+  <div class="col-10 justify-content-between">
 
     {% for hike in hikes %}
       {% set zip = hike.zipcode | string() %} 
       {% if input == hike.city or input == zip or input == hike.name %}
 
       <!-- <ul class = "p-3 bg-transparent border border-light rounded"> -->
-        <li class="p-3 list-group-item bg-gradient-light">
+        <div class="item-wrapper">
+          <!-- <div class = "d-flex align-content-stretch flex-wrap">  -->
+
+          
+        <li class="p-3 m-3 list-group-item list-group-item-card bg-gradient-light"> 
           <a href="/hikeList/{{ hike.hike_id }}">
             {{ hike.name }} </a>
-            | 
-            Difficulty: {{ hike.difficulty }}
-            |
-            Type: {{ hike.route_type }}
+            <span class = "brmedium"></span>
+            &emsp;Type: {{ hike.route_type }}
+            <br>
+            &emsp;Difficulty: {{ hike.difficulty }}
+            <br>
+            &emsp;Average Rating: {{ hike.average_rating }}
         
         </li>
+        </div>  
       <!-- </ul> -->
       {% endif %}
     {% endfor %}

@@ -236,26 +236,45 @@ h1{
 
 h3{
   color:white;
+  margin-left: 10px;
   font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  position: relative;
-  text-align: left;
-  margin-left: 30px;
+  padding: 10px;  
+  font-weight: 400px;
+  font-size: 30px;
+}
+
+.alert {
+  color:white;
+  margin-left: 5px;
+  font-family: 'Playfair Display', serif;
+  padding: 10px;  
+  font-weight: 400px;
+  font-size: 20px;
 }
 
 h5{
   color: white;
   font-family: 'Playfair Display', serif;
   padding: 10px;  
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 400px;
+  font-size: 30px;
   
 }
 
 h6{
   color: black;
   font-family: 'Roboto', serif !important;
-  font-weight:300px;
+  font-weight:200px;
+  padding: 2px; 
+  font-size: 24px;
+  
+}
+
+
+.details-font {
+  color: black;
+  font-family: 'Roboto', serif !important;
+  font-weight:200px;
   padding: 2px; 
   font-size: 20px;
   

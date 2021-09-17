@@ -116,3 +116,14 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 };
+
+
+function getLocation(){
+  navigator.geolocation.getCurrentPosition(showPosition);
+ }
+
+ function showPosition(position) { 
+   document.getElementById("curr-lat").value = position.coords.latitude;
+   document.getElementById("curr-long").value = position.coords.longitude;
+   showRadiusDropdown();
+ }

@@ -184,8 +184,11 @@ def hike_details(hike_id):
 
     # print("\n\nuser_login**", user_login, "\n\n")
     # print("\n\nCURRENT_HIKE", session['CURRENT_HIKE'], "\n\n")
+
+    ratings = crud.get_ratings_by_user_email(user_login)
+    bookmarks = crud.get_bookmarks_by_user_email(user_login)
     
-    return render_template("hike_details.html", hike=hike, user_login=user_login)
+    return render_template("hike_details.html", hike=hike, user_login=user_login, ratings = ratings, bookmarks = bookmarks)
 
 
 @app.route('/hikeList/<hike_id>/map.json')

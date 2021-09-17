@@ -5,25 +5,26 @@
 
 
 {% block body %}
-
 <div class="container-fluid">
+
   <div class = "row pt-3">
-    <div class = "col-4">
+    <div class = "col-6">
       <ul class = "list-group">
         <h3>{{ hike.name }}</h3>
       </ul>
     </div>
 
-    <div class = "col-8" id = "boomarks-header-container">
+    <div class = "col-6" id = "boomarks-header-container">
       
-        <h5 id = "bookmarks-header"></h5> 
+        <span class = "alert" id = "bookmarks-header"></span> 
     </div>
   </div>
 
     <div class = "row p-3">
-      <div class = "col-4">
+      <div class = "col-6">
           <li class = "list-group-item list-group-item-set bg-light">
             <h6>Hike Information: </h6>
+            <div class = "details-font">
             City: {{ hike.city }}<br>
             Route Type: {{ hike.route_type }}<br>
             Activities: 
@@ -39,13 +40,23 @@
             {% endfor %}
 
             Difficulty: {{ hike.difficulty }}<br>
-            Average Rating: {{ hike.average_rating }}<br>
+            Average Rating: {{ hike.average_rating }}
+            <br>
+           </div>
+
           </li>
         </ul>
       </div>
 
-      <div class = "col-8">
-                {% if user_login %}
+      <div class = "col-6">
+      {% if user_login %}
+
+        {% if hike.hike_id in bookmarks %}
+
+      <h6 id=bookmarks>hike already bookmarked</h6>
+
+      {% else %} 
+
 
         <li class = "list-group-item list-group-item-set bg-light">
         
@@ -54,21 +65,25 @@
 
           <h6 id=bookmarks>Bookmark this hike:</h6>
       
+              <div class = "details-font">
 
             <input 
-              type="radio" 
+              type="checkbox" 
+              id = "saved-checkbox"
               name="bookmark" 
               value="False">   
-            Save This Hike<br>
+
+              &emsp;Save This Hike<br>
 
 
             <input 
-              type="radio" 
+              type="checkbox" 
+              id = "comp-checkbox"
               name="bookmark" 
               value="True"> 
-            Completed This Hike<br>
+              &emsp;Completed This Hike<br>
 
-
+</div>
 
               <!-- <button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button>  -->
 
@@ -113,6 +128,7 @@
          
 
         </form>
+        {% endif %}
 
         {% endif %}
 
@@ -123,7 +139,7 @@
 </li>
 
 
-    </div>
+</div>
 
 
 
@@ -153,6 +169,30 @@
       <div class = "col-12">
         <ul class = "list-group-map">
           <h3>Google Maps Location</h3>
+
+
+<!-- 
+          <div class = "row">
+
+            <div id = "location" align = "center"> --> 
+          
+                <!-- Button for getting the current Lat-long position.
+                Upon click, the button prints current latlong on text fields.
+                Note that this button is outside of the 'form' tags-->
+                
+                <!--  <button id="user-loc" onclick="getLocation()"><p>Find Directions</p></button><br>  -->
+                
+<!--                 
+                <form action="/search-hike" method="POST" id="loc-radius">
+                
+                
+                <input type="hidden" name="user-lat" id="user-lat">
+                <input type="hidden" name="user-long" id="user-long">
+          
+          </div>
+          </div>  -->
+
+
           <li class = "mb-3 p-3 list-group bg-transparent">
             <div id="map"></div>
           </li>

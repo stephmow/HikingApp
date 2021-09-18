@@ -2,105 +2,87 @@
 
 {% block title %} Details - {{ hike.name }} {% endblock %}
 
-
-
 {% block body %}
 <div class="container-fluid">
 
   <div class = "row pt-3">
+
     <div class = "col-6">
       <ul class = "list-group">
         <h3>{{ hike.name }}</h3>
       </ul>
     </div>
 
-    <div class = "col-6" id = "boomarks-header-container">
-      
+    <div class = "col-6" 
+        id = "boomarks-header-container">
+
         <span class = "alert" id = "bookmarks-header"></span> 
+
     </div>
+
   </div>
 
-    <div class = "row p-3">
-      <div class = "col-6">
-          <li class = "list-group-item list-group-item-set bg-light">
-            <h6>Hike Information: </h6>
-            <div class = "details-font">
-            City: {{ hike.city }}<br>
-            Route Type: {{ hike.route_type }}<br>
-            Activities: 
+  <div class = "row p-3">
 
-            {% set list1 = hike.activities.split(', ') %}
+    <div class = "col-6">
 
-            {% for item in list1 %} 
-              {% set item = item.strip("'[]'") %}
-              <div class = "simple-list">
-                &emsp;-  {{ item }}
-              </div>
+      <li class = "list-group-item list-group-item-set bg-light">
+        <h6>Hike Information: </h6>
 
-            {% endfor %}
+        <div class = "details-font">
+          City: {{ hike.city }}<br>
+          Route Type: {{ hike.route_type }}<br>
+          Activities: 
 
-            Difficulty: {{ hike.difficulty }}<br>
-            Average Rating: {{ hike.average_rating }}
-            <br>
-           </div>
+          {% set list1 = hike.activities.split(', ') %}
 
-          </li>
-        </ul>
-      </div>
+          {% for item in list1 %} 
+            {% set item = item.strip("'[]'") %}
+            <div class = "simple-list">
+              &emsp;-  {{ item }}
+            </div>
+        {% endfor %}
 
-      <div class = "col-6">
+          Difficulty: {{ hike.difficulty }}<br>
+          Average Rating: {{ hike.average_rating }}<br>
+        </div>
+
+      </li>
+    </div>
+
+    <div class = "col-6">
       {% if user_login %}
 
-        {% if hike.hike_id in bookmarks %}
-
-      <h6 id=bookmarks>hike already bookmarked</h6>
-
-      {% else %} 
-
-
-        <li class = "list-group-item list-group-item-set bg-light">
-        
-
-        <form id ="bookmarks">
-
-          <h6 id=bookmarks>Bookmark this hike:</h6>
+      <li class = "list-group-item list-group-item-set bg-light">
       
-              <div class = "details-font">
+      <form id ="bookmarks">
 
-            <input 
-              type="checkbox" 
-              id = "saved-checkbox"
-              name="bookmark" 
-              value="False">   
+        <h6 id=bookmarks>Bookmark this hike:</h6>
+    
+          <div class = "details-font">
 
-              &emsp;Save This Hike<br>
+          <input 
+            type="checkbox" 
+            id = "saved-checkbox"
+            name="bookmark" 
+            value="False">   
+            &emsp;Save This Hike<br>
 
+          <input 
+            type="checkbox" 
+            id = "comp-checkbox"
+            name="bookmark" 
+            value="True"> 
+            &emsp;Completed This Hike<br>
 
-            <input 
-              type="checkbox" 
-              id = "comp-checkbox"
-              name="bookmark" 
-              value="True"> 
-              &emsp;Completed This Hike<br>
+        </div>
+      </form>
 
-</div>
+      <form id = "ratings">
 
-              <!-- <button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button>  -->
+        <h6 id="ratings-header">Rate this hike</h6>
 
-
-
-        </form>
-
-
-        <form id = "ratings">
-
-          <!-- action="/hikeList/{{ hike.hike_id }}/bookmark" method="POST" -->
-
-          <h6 id="ratings-header">Rate this hike</h6>
-
-          <p>
-
-          <div class="rate">
+          <p><div class="rate">
             <input type="radio" id="star5" name="rating" value="5" />
             <label for="star5" title="text">5 stars</label>
             <input type="radio" id="star4" name="rating" value="4" />
@@ -111,96 +93,45 @@
             <label for="star2" title="text">2 stars</label>
             <input type="radio" id="star1" name="rating" value="1" />
             <label for="star1" title="text">1 star</label>
-          </div>
-          <br>
- </p><br>
- <p>
+          </div></p><br>
 
-<input type="text" 
-                name="comments" placeholder = "Comments">
-
-
- </p>
-          
-
-          <button class = "btn btn-secondary" type="submit" value="Submit" id = "test">Submit</button>
+          <p><input type="text" 
+                    name="comments" 
+                    placeholder = "Comments"></p>
         
-         
+          <button class = "btn btn-secondary" 
+                  type="submit" 
+                  value="Submit" 
+                  id = "test">Submit</button>
+    
+      </form>
 
-        </form>
-        {% endif %}
+    {% endif %}
 
-        {% endif %}
+    </li>
 
-
-
-
-
-</li>
-
-
-</div>
-
-
-
-
-    </div>
-  
-
-
-
- 
-
-
-
-
-
-    <!--  hidden input of hike_id  -->
-  <div>
-      <input 
-     id = "hidden-hike-id" 
-     type= "hidden" 
-     name="hike_id" 
-     value= {{ hike.hike_id }}>
+  </div>
   </div>
 
+  <!--  hidden input for hike_id  -->
+  <div>
+      <input 
+          id = "hidden-hike-id" 
+          type= "hidden" 
+          name="hike_id" 
+          value= {{ hike.hike_id }}>
+  </div>
 
-    <div class = "row pt-3">
-      <div class = "col-12">
-        <ul class = "list-group-map">
-          <h3>Google Maps Location</h3>
-
-
-<!-- 
-          <div class = "row">
-
-            <div id = "location" align = "center"> --> 
-          
-                <!-- Button for getting the current Lat-long position.
-                Upon click, the button prints current latlong on text fields.
-                Note that this button is outside of the 'form' tags-->
-                
-                <!--  <button id="user-loc" onclick="getLocation()"><p>Find Directions</p></button><br>  -->
-                
-<!--                 
-                <form action="/search-hike" method="POST" id="loc-radius">
-                
-                
-                <input type="hidden" name="user-lat" id="user-lat">
-                <input type="hidden" name="user-long" id="user-long">
-          
-          </div>
-          </div>  -->
-
-
-          <li class = "mb-3 p-3 list-group bg-transparent">
-            <div id="map"></div>
-          </li>
-        </ul>
-      </div>
+  <div class = "row pt-3">
+    <div class = "col-12">
+      <ul class = "list-group-map">
+        <h3>Google Maps Location</h3>
+        <li class = "mb-3 p-3 list-group bg-transparent">
+          <div id="map"></div>
+        </li>
+      </ul>
     </div>
-
-
+  </div>
 
 </div>
 

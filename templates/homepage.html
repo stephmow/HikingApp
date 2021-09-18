@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Welcome to HikeFinder{% endblock %}
+{% block title %}Welcome to TakeAHike!{% endblock %}
 
 {% block head %}{% endblock %} 
 
-
 {% block body %}
-
 
 <div class="container-fluid">
 
@@ -14,47 +12,38 @@
       <h5 id="myHeader">TAKE A <span id="userName"></span></h5>
       <p></p>
       <h1 id="myHeader">HIKE!</h1>
-
   </div>
-  <!-- <div class="row justify-content-center pb-3">
-        <h5 id="myHeader">& recharge</h5>
-  </div> -->
 
 <div class="homepage-loggedin">
-
 
   <div class="row">
 
     <div class="col-4"> 
 
-
       {% if user_login == None %}
+      <form id="create-account">
+        
+        <h5>Create an Account</h5>
+        <p>  <input class="form-control" 
+                  id = "account-email"
+                  type="email" 
+                  name="email" 
+                  required="required" 
+                  placeholder="Email"></p>
+        <p>  <input class="form-control" 
+                  id = "account-pass"
+                  type="password" 
+                  name="password" 
+                  required="required" 
+                  placeholder="Password"></p>
+        <p><button class = "btn btn-secondary" 
+                    type="submit" 
+                    value="Submit">Submit</button></p>
 
-        <form id="create-account">
-          
-          <h5>Create an Account</h5>
-          <p>  <input class="form-control" 
-                    id = "account-email"
-                    type="email" 
-                    name="email" 
-                    required="required" 
-                    placeholder="Email"></p>
-          <p>  <input class="form-control" 
-                    id = "account-pass"
-                    type="password" 
-                    name="password" 
-                    required="required" 
-                    placeholder="Password"></p>
-          <p><button class = "btn btn-secondary" type="submit" value="Submit">Submit</button></p>
-
-        </form>
-
+      </form>
       {% endif %}
       
       {% if user_login %}
-     
-
-
       <div id="user-bookmarks">
 
         <h5>My Saved Hikes</h5>
@@ -62,42 +51,40 @@
         <div class="list-group-homepage">
 
           {% if bookmarks == [] %} 
-                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" style = "background-color: lightgray">
+          <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+              style = "background-color: lightgray">
 
-                <div class="d-flex w-100 justify-content-between">
-                  You have not saved any hikes.
-                </div>
-              </ul>
+            <div class="d-flex w-100 justify-content-between">
+              You have not saved any hikes.
+            </div>
+          </ul>
           {% endif %} 
 
           {% for bookmark in bookmarks %}
-            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-saved" 
-              id = "li-{{bookmark.hike.hike_id}}" 
-              name = "saved-bookmark">
+          <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-saved" 
+            id = "li-{{bookmark.hike.hike_id}}" 
+            name = "saved-bookmark">
 
-              <div class="d-flex w-100 justify-content-between">
+            <div class="d-flex w-100 justify-content-between">
 
-                
-                <a href = "/hikeList/{{bookmark.hike.hike_id}}" 
-                  class="mb-1">{{ bookmark.hike.name }}</a>
-                <small>
-                  <button 
-                    class ="trash-bookmark button" 
-                    value = "{{bookmark.hike.hike_id}}" 
-                    style = "font-size:50px">
-                    delete_outline
-                  </button>
-                      
-                </small>
-              </div>
-            </ul>
+              <a href = "/hikeList/{{bookmark.hike.hike_id}}" 
+                class="mb-1">{{ bookmark.hike.name }}</a>
+              <small>
+                <button 
+                  class ="trash-bookmark button" 
+                  value = "{{bookmark.hike.hike_id}}" 
+                  style = "font-size:50px">
+                  delete_outline
+                </button>
+              </small>
+            </div>
+          </ul>
           {% endfor %}
+
         </div>
+
       </div>
-
       {% endif %}
-
-
 
     </div>
 
@@ -116,20 +103,20 @@
                 required="required"
                 autocomplete="off"></p>
 
-                <p><button class = "btn btn-secondary" type="submit" value="Submit">Search</button></p>
+                <p><button 
+                  class = "btn btn-secondary" 
+                  type="submit" 
+                  value="Submit">
+                  Search
+                </button></p>
 
         </form>
-        
       </div>
-    
     </div>
 
   </div>
 
-
-
-    {% if user_login %}
-
+  {% if user_login %}
   <div class = "row">
 
     <div class = "col-4">
@@ -148,125 +135,95 @@
     <div class="col-4">
 
       {% if user_login == None %}
+      <form id="user-login">
 
-        <form id="user-login">
+        <h5>Log In</h5>
+        <p> <input class="form-control" 
+                  id="login-email" 
+                  type="email" 
+                  name="email-login" 
+                  required="required"
+                  placeholder="Email"></p>
+        <p> <input class="form-control" 
+                  id="login-pass" 
+                  type="password" 
+                  name="password-login" 
+                  required="required"
+                  placeholder="Password"></p>
+        <p><button class = "btn btn-secondary" 
+                  type="submit" 
+                  value="Submit">
+                  Submit</button></p> 
 
-          <h5>Log In</h5>
-          <!-- removed from line above  action="/login" method="POST"-->
-          <p> <input class="form-control" 
-                    id="login-email" 
-                    type="email" 
-                    name="email-login" 
-                    required="required"
-                    placeholder="Email"></p>
-          <p> <input class="form-control" 
-                    id="login-pass" 
-                    type="password" 
-                    name="password-login" 
-                    required="required"
-                    placeholder="Password"></p>
-          <p><button class = "btn btn-secondary" type="submit" value="Submit">Submit</button></p> 
-
-
-        </form>
-
+      </form>
       {% endif %}
+
       {% if user_login %}
+      <div id="user-ratings">
 
-        <div id="user-ratings">
+        <div class="list-group-homepage">
 
+          {% if ratings == [] %} 
+          <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+              style = "background-color: lightgray">
+            <div class="d-flex w-100 justify-content-between">
+              You have not completed any hikes.
+            </div>
+          </ul>
+          {% endif %} 
 
-          <div class="list-group-homepage">
+          {% for rating in ratings %}
+          <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-comp" 
+              id = "li-{{rating.hike.hike_id}}" 
+              name = "saved-rating">
 
-
-            {% if ratings == [] %} 
-              <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" style = "background-color: lightgray">
-                <div class="d-flex w-100 justify-content-between">
-                 You have not completed any hikes.
-                </div>
-              </ul>
-            {% endif %} 
-
-            {% for rating in ratings %}
-
-                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-comp" 
-                id = "li-{{rating.hike.hike_id}}" 
-                name = "saved-rating">
-
-                <div class="d-flex w-100 justify-content-between">
-                  <a href = "/hikeList/{{rating.hike.hike_id}}"  class="mb-1">{{ rating.hike.name }}</a>
-                  <small>
-                      <button 
-                      class ="trash-rating button" 
-                      value = "{{rating.hike.hike_id}}" 
-                      style = "font-size:50px">
-                      delete_outline
-                    </button>
-                  </small>
-                </div>
-                <small class="mb-1">
-                  My Rating: {{ rating.rating }}<br>
-                  My Comments: {{ rating.comments }}
-                </small>
-              </ul>
-            {% endfor %}
+          <div class="d-flex w-100 justify-content-between">
+            <a href = "/hikeList/{{rating.hike.hike_id}}"  
+                class="mb-1">{{ rating.hike.name }}</a>
+            <small>
+                <button 
+                class ="trash-rating button" 
+                value = "{{rating.hike.hike_id}}" 
+                style = "font-size:50px">
+                delete_outline
+              </button>
+            </small>
           </div>
-        </div>
-
-
-
-
-
-
-
-
-
-        </div>
-
+          <small class="mb-1">
+            My Rating: {{ rating.rating }}<br>
+            My Comments: {{ rating.comments }}
+          </small>
+        </ul>
+        {% endfor %}
+        
+        </div>    
+      </div>
       {% endif %}
 
-
+    </div>  
 
     <div class="col-8">
+
       <div class="list-group-homepage">  
 
       {% if user_login %}
-
-      
-
-      <!-- <div class = "col-8 ">     -->
-          <!-- <ul class = "list-group-item list-group-solid-item list-group-map">   -->
-    
-            <!-- <li class = "list-group-solid-item list-group-map">    -->
-              <div id="map"></div>  
-            <!-- </li>     -->
-          <!-- </ul>    -->
-        <!-- </div>     -->
-
-
-
+      <div id="map"></div>  
       {% endif %}
 
+      </div>
+
     </div>
-
-  </div>
   
+  </div>
 </div>
-</div>
-
-
 </div>
  
-    <!--  hidden input of current session email  -->
-    <input 
+  <!--  hidden input of current session email  -->
+  <input 
     id = "hidden-user-email" 
     type= "hidden" 
     name="user-email" 
     value= {{ user_login }}>
-
-
-  
-
 
 {% endblock %}
   

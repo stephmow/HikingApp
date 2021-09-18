@@ -4,14 +4,12 @@ import os
 import json
 import csv
 from random import choice, randint 
-# from datetime import datetime 
 import crud, model, server
 import geocoder
 import requests
 
 GOOGLE_API_KEY = os.environ['GOOGLE_API_KEY']
 
-# review syntax for below  
 os.system("dropdb hikedb") 
 os.system("createdb hikedb")
 
@@ -26,16 +24,12 @@ def seed_from_csv():
 
             trail_id = row[0]
             name = row[1]
-            # area_name, 2
             city = row[3]
-            # state_name,
-            # country_name,
             location_id = row[6]
                 # output: "\\{'lat': 20.71449, 'lng': -156.25085\\}"  which is a string
             location_strip = location_id.strip('\\{, \\}')
             location_split = location_strip.split()
                 # output: ['lat':, 20.71449, , 'lng': , 156.25085]
-
             latitude = location_split[1].strip(",")
             longitude = location_split[3]
 
@@ -48,9 +42,6 @@ def seed_from_csv():
 
             base_url = 'https://maps.googleapis.com/maps/api/geocode/json?'
             response = requests.get(base_url, params = params).json()   
-            
-            # if 'results' in response: 
-            #     zipcode = response['results'][0]['address_components'][7]['long_name']
 
             zipcode = None
 
@@ -58,28 +49,11 @@ def seed_from_csv():
                 if item['types'][0] == 'postal_code':
                     zipcode = item['long_name']
          
-
-
-
-            # print(latitude, longitude)   # prints as integers
-            # coord = (latitude,longitude)  #prints as strings
-
-            #reqeust.get______ --> geocode to obtain zipcode ****
-
-            # print(coord)
-            # latitude = location_id['lat']
-            # reverse = geocoder.google(location_id)
-            # popularity,
             hike_length = float(row[8])
-            # elevation_gain,
             difficulty = int(row[10])
             route_type = row[11]
-            # visitor_usage,
             average_rating = float(row[13])
-            # num_reviews,
-            # features,
             activities = row[16]
-            # units\
 
         # example hike 
             # ['10011933', 
@@ -106,9 +80,7 @@ def seed_from_csv():
         email = f'user{n}@test.com'
         password = 'test'
 
-        # create a user here
         user = crud.create_user(email, password)
-
 
 def seed_from_json():
     # Load (sample) hiking data from JSON file (from Yelp)
@@ -153,4 +125,3 @@ def seed_from_json():
 if __name__ == "__main__":
     # seed_from_json()   change if using .json data 
     seed_from_csv()
-

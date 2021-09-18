@@ -20,7 +20,7 @@
           {% endif %} 
 
           {% for bookmark in bookmarks %}
-            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+            <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-saved" 
               id = "li-{{bookmark.hike.hike_id}}" 
               name = "saved-bookmark">
 
@@ -106,7 +106,7 @@
 
             {% for rating in ratings %}
 
-                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item" 
+                <ul class="list-group-item list-group-item-action flex-column align-items-start list-group-item-comp" 
                 id = "li-{{rating.hike.hike_id}}" 
                 name = "saved-rating">
 

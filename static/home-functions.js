@@ -1,32 +1,22 @@
  "use strict";
 
-//  Function to hide flashed message after 3 seconds
+//  Function to flash messages and hide after 3 seconds
 function flash(res) {
-
   $("#flash-msg").show();
-
   $("#flash-msg").html(res);
-
-  // This isn't working, but might be close to reload the div. 
-  // $("#flash-message").load(location.href + " #flash-message");  
-
-  console.log(res);
-
   setTimeout(function(){
       $("#flash-msg").hide("2000")
       }, 3000);
-
 };
 
-
-// Function for autocomplete 
+// Function for searchbar autocomplete 
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
-  var currentFocus;
+  let currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.addEventListener("input", function(e) {
-      var a, b, i, val = this.value;
+      let a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
       closeAllLists();
       if (!val) { return false;}
@@ -62,7 +52,7 @@ function autocomplete(inp, arr) {
   });
   /*execute a function presses a key on the keyboard:*/
   inp.addEventListener("keydown", function(e) {
-      var x = document.getElementById(this.id + "autocomplete-list");
+      let x = document.getElementById(this.id + "autocomplete-list");
       if (x) x = x.getElementsByTagName("div");
       if (e.keyCode == 40) {
         /*If the arrow DOWN key is pressed,
@@ -97,15 +87,15 @@ function autocomplete(inp, arr) {
   }
   function removeActive(x) {
     /*a function to remove the "active" class from all autocomplete items:*/
-    for (var i = 0; i < x.length; i++) {
+    for (let i = 0; i < x.length; i++) {
       x[i].classList.remove("autocomplete-active");
     }
   }
   function closeAllLists(elmnt) {
     /*close all autocomplete lists in the document,
     except the one passed as an argument:*/
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
+    let x = document.getElementsByClassName("autocomplete-items");
+    for (let i = 0; i < x.length; i++) {
       if (elmnt != x[i] && elmnt != inp) {
       x[i].parentNode.removeChild(x[i]);
     }
@@ -116,14 +106,3 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 };
-
-
-function getLocation(){
-  navigator.geolocation.getCurrentPosition(showPosition);
- }
-
- function showPosition(position) { 
-   document.getElementById("curr-lat").value = position.coords.latitude;
-   document.getElementById("curr-long").value = position.coords.longitude;
-   showRadiusDropdown();
- }

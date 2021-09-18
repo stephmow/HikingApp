@@ -53,7 +53,7 @@ class Hike(db.Model):
 
 
 class Rating(db.Model):
-    """A hike rating."""
+    """A hike rating for completed hike."""
 
     __tablename__ = "ratings"
 

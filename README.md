@@ -5,7 +5,7 @@ A web application that allows users to search for hiking trails by name, zipcode
 #### Functionality
 
 - Create an account and login
--- giffy
+-- ![homepage](/static/img/login.gif)
 - Search for hikes by name, city and/or zipcode
 -- giffy 
 - See list of hiking trails within search criteria
@@ -21,7 +21,7 @@ A web application that allows users to search for hiking trails by name, zipcode
 #### Tech Stack Used
 
 - Backend: Python, PostgreSQL
-- Frontend: JavaScript, jQuery, Bootstrap
+- Frontend: JavaScript, jQuery, HTML, CSS, Bootstrap
 - APIs Used: Google Maps and Geocoding API
 - Other: Unsplash for background image
 

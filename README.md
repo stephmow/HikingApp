@@ -5,18 +5,17 @@ A web application that allows users to search for hiking trails by name, zipcode
 #### Functionality
 
 - Create an account and login
--- ![homepage](/static/images/login.gif)
 - Search for hikes by name, city and/or zipcode
--- giffy 
+-- ![login](/static/images/login.jpg)
 - See list of hiking trails within search criteria
--- giffy 
+-- ![results](/static/images/results.jpg)
 - See details on select hike, including ratings, difficulty, activities and location on google maps
 - Get directions to selected hike
 - Save, rate and comment on hikes
--- giffy 
+-- ![details](/static/images/details.jpg)
 - Refer to bookmarked hikes on a single map on homepage
 - Delete bookmarks 
--- giffy
+-- ![homepage](/static/images/homepage.jpg)
 
 #### Tech Stack Used
 

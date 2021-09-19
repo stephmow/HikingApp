@@ -5,7 +5,7 @@ A web application that allows users to search for hiking trails by name, zipcode
 #### Functionality
 
 - Create an account and login
--- ![homepage](/static/img/login.gif)
+-- ![homepage](/static/images/login.gif)
 - Search for hikes by name, city and/or zipcode
 -- giffy 
 - See list of hiking trails within search criteria

@@ -55,25 +55,6 @@ def seed_from_csv():
             average_rating = float(row[13])
             activities = row[16]
 
-        # example hike 
-            # ['10011933', 
-            # 'Puna Kau Trail', 
-            # 'Hawaii Volcanoes National Park', 
-            # 'Pahala', 
-            # 'Hawaii', 
-            # 'Hawaii', 
-            # "\\{'lat': 19.29054, 'lng': -155.13412\\}", 6
-            # '4.2363', 
-            # '29289.988', 
-            # '420.9288', 
-            # '5', 10
-            # 'out and back', 11
-            # '', 
-            # '4.5', 
-            # '3', 
-            # "['dogs-no', 'views']", "['hiking']", 
-            # 'm\\']
-
             crud.create_hike(rating_id = None, location_id = None, city = city, latitude = latitude, longitude = longitude, zipcode = zipcode, name = name, hike_length = hike_length, average_rating = average_rating, difficulty = difficulty, route_type = route_type, activities = activities, dog_friendly = None)
 
     for n in range(10):
@@ -88,7 +69,6 @@ def seed_from_json():
         hike_dict=json.loads(f.read())
 
     hikes_list = hike_dict['businesses']
-
 
     # Create hikes, store them in list so we can use them
     # to create fake ratings later

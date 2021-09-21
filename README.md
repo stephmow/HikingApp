@@ -1,6 +1,6 @@
 # Take A Hike!
 
-A web application that allows users to search for hiking trails by name, zipcode or city and displays information for the hike.  Logged in users can create a list of saved and/or completed hikes.
+For my Hackbright project, I wanted to create a user friendly dynamic web application encouraging users to get active since many of us are working remote these days. Users are able to search for hiking trails by name, zipcode and/or city, and see review details for selected hikes. Logged in users can create a list of saved and/or completed hikes for future reference.
 
 ### Features with Screenshots
 

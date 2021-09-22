@@ -68,3 +68,10 @@ python3 server.py
 ```
 
 Go to your browser and type in 'localhost:5000'.  
+
+### Future Sprints
+
+In the future, I would love to implement the following features: 
+- Allow users to see other users' reviews and ratings.  Allow users to collaborate and plan to do bookmarked hikes together. 
+- Track real time progress of hikes using GPS on mobile web app. 
+- Implement React and convert the site to a single-page application.
